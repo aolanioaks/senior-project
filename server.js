@@ -17,6 +17,7 @@ const jwt = require("jsonwebtoken");
 
 const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false },
 });
 
 
@@ -266,6 +267,7 @@ app.post("/auth/client/login", async (req, res) => {
 
 
 
-app.listen(8080, () => {
-  console.log("Server is running on port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
