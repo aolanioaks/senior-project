@@ -1,22 +1,876 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Web Application</title>
-    <link rel="stylesheet" href="styles.css">
-    <script defer src="app.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Riverside Business Insurance Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
 </head>
-<body>
-    <header>
-        <h1>Welcome to My Web Application</h1>
-    </header>
-    <main>
-        <p>This is a sample web application.</p>
-    </main>
-    <footer>
-        <p>&copy; 2024 My Web Application</p>
-    </footer>
 
+<body>
+  <div id="app">
+
+    <header class="top-nav">
+      <div class="nav-left" v-on:click="goTo('landing')">
+        <div class="nav-logo">
+          <span class="logo-text">RIVERSIDE BUSINESS INSURANCE</span>
+        </div>
+      </div>
+
+      <nav class="nav-links">
+        <button class="nav-link" v-on:click="goTo('agents')">Agents</button>
+        <button class="nav-link" v-on:click="goTo('about')">About</button>
+        <button class="nav-link" v-on:click="goTo('contact')">Contact</button>
+        <div class="nav-divider"></div>
+        <button class="agent-login" v-on:click="goTo('agentLogin')">
+          <span>👤 Agent Login</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- landing Page -->
+    <div v-if="currentPage === 'landing'" class="page landing-page">
+      <div class="landing-hero">
+        <div class="hero-content">
+          <div class="hero-tag">Est. 2010</div>
+          <h1 class="hero-headline">
+            Your Trusted Partner for
+            <span class="highlight">Comprehensive Insurance</span>
+            Solutions
+          </h1>
+          <p class="hero-subtext">Protecting what matters most with personalized coverage and exceptional service.</p>
+          <button class="cta-primary" v-on:click="goTo('categories')">
+            <span>Get Started →</span>
+          </button>
+        </div>
+        <div class="hero-visual">
+          <div class="visual-frame">
+            <div class="frame-content">
+              <div class="stat-card">
+                <span class="stat-number">15+</span>
+                <span class="stat-label">Years Experience</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">10K+</span>
+                <span class="stat-label">Clients Protected</span>
+              </div>
+              <div class="stat-card">
+                <span class="stat-number">50+</span>
+                <span class="stat-label">Carrier Partners</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="landing-features">
+        <div class="feature-item">
+          <div class="feature-icon">🛡️</div>
+          <h3>Complete Protection</h3>
+          <p>Comprehensive coverage options tailored to your unique needs</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">👥</div>
+          <h3>Expert Agents</h3>
+          <p>Dedicated professionals committed to your peace of mind</p>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">⚡</div>
+          <h3>Fast Quotes</h3>
+          <p>Quick, accurate quotes with no obligation required</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- nav pages -->
+    <div v-if="currentPage === 'agents'" class="page">
+      <div class="content-panel">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back to Home
+        </button>
+        <div class="panel-header">
+          <h2 class="panel-title">Our Agents</h2>
+          <p class="panel-subtitle">Meet the team dedicated to protecting what matters most to you.</p>
+        </div>
+        <div class="panel-content">
+          <p>This is where you can list agents, bios, and contact buttons.</p>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="currentPage === 'about'" class="page">
+      <div class="content-panel">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back to Home
+        </button>
+        <div class="panel-header">
+          <h2 class="panel-title">About Riverside</h2>
+          <p class="panel-subtitle">Serving our community with integrity and excellence since 2010.</p>
+        </div>
+        <div class="panel-content">
+          <p>Add your agency story, mission, and carriers here.</p>
+        </div>
+      </div>
+    </div>
+
+    <div v-if="currentPage === 'contact'" class="page">
+      <div class="content-panel">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back to Home
+        </button>
+        <div class="panel-header">
+          <h2 class="panel-title">Contact Us</h2>
+          <p class="panel-subtitle">We're here to answer your questions and provide guidance.</p>
+        </div>
+        <div class="panel-content">
+          <p>Add phone, email, location, and a contact form here.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- categories page with card carasoul -->
+    <div v-if="currentPage === 'categories'" class="page categories-page">
+      <div class="categories-container">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back to Home
+        </button>
+
+        <div class="category-header">
+          <h2 class="category-title">Select Your Coverage</h2>
+          <p class="category-desc">Choose the type of insurance you need to receive a personalized quote from our expert agents.</p>
+        </div>
+
+        <div class="carousel">
+          <button class="carousel-nav prev" v-on:click="prev">←</button>
+
+          <div class="carousel-track">
+            <div
+              v-for="(card, index) in categories"
+              :key="card.key"
+              class="carousel-card"
+              :class="{ active: index === activeIndex }"
+              :style="cardStyle(index)"
+              v-on:click="goCard(index)"
+            >
+              <h3 class="card-title">{{ card.title }}</h3>
+              <p class="card-sub">{{ card.sub }}</p>
+              <button class="card-cta" v-on:click.stop="requestQuote(card.formPage)">
+                Request Quote →
+              </button>
+            </div>
+          </div>
+
+          <button class="carousel-nav next" v-on:click="next">→</button>
+        </div>
+
+        <div class="carousel-dots">
+          <button 
+            v-for="(card, index) in categories" 
+            :key="'dot-' + card.key"
+            class="dot"
+            :class="{ active: index === activeIndex }"
+            v-on:click="goCard(index)"
+          ></button>
+        </div>
+      </div>
+    </div>
+
+    
+    <!-- client login/signup page they must in order to submit a quote  -->
+    <div v-if="currentPage === 'clientLogin'" class="page">
+      <div class="auth-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">
+          ← Back
+        </button>
+
+        <div class="auth-header">
+          <div class="auth-icon">👤</div>
+          <h2 class="auth-title">Client Portal</h2>
+          <p class="auth-subtitle">{{ isClientSignup ? 'Create your account' : 'Welcome back' }}</p>
+        </div>
+
+        <form class="auth-form" v-on:submit.prevent="handleClientAuth">
+          <div v-if="isClientSignup" class="form-group">
+            <label>Full Name</label>
+            <input type="text" v-model="clientAuth.fullName" required placeholder="Enter your full name" />
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" v-model="clientAuth.email" required placeholder="Enter your email" />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" v-model="clientAuth.password" required placeholder="Enter your password" />
+          </div>
+
+          <div v-if="isClientSignup" class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" v-model="clientAuth.phone" required placeholder="Enter your phone number" />
+          </div>
+
+          <button type="submit" class="btn-primary">
+            {{ isClientSignup ? 'Create Account' : 'Sign In' }}
+          </button>
+        </form>
+
+        <div class="auth-toggle">
+          <p v-if="!isClientSignup">
+            Don't have an account? 
+            <button class="link-btn" v-on:click="isClientSignup = true">Sign Up</button>
+          </p>
+          <p v-else>
+            Already have an account? 
+            <button class="link-btn" v-on:click="isClientSignup = false">Sign In</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- client dashboard -->
+    <div v-if="currentPage === 'clientDashboard'" class="page">
+      <div class="dashboard-panel">
+        <div class="dashboard-header">
+          <div>
+            <h2 class="dashboard-title">Welcome, {{ clientAuth.fullName || 'Client' }}</h2>
+            <p class="dashboard-subtitle">Your Quote Requests</p>
+          </div>
+          <button class="btn-secondary" v-on:click="logout()">
+            Logout
+          </button>
+        </div>
+        
+        <div class="dashboard-content">
+          <div class="empty-state" v-if="quoteRequests.length === 0">
+            <div class="empty-icon">📋</div>
+            <h3>No Quote Requests Yet</h3>
+            <p>Start by requesting a quote for your insurance needs.</p>
+          </div>
+          
+          <button class="btn-primary" v-on:click="goTo('categories')">
+            + Request New Quote
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- agent login page -->
+    <div v-if="currentPage === 'agentLogin'" class="page">
+      <div class="auth-panel">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back
+        </button>
+
+        <div class="auth-header">
+          <div class="auth-icon">🔒</div>
+          <h2 class="auth-title">Agent Portal</h2>
+          <p class="auth-subtitle">{{ isAgentSignup ? 'Create agent account' : 'Agent login' }}</p>
+        </div>
+
+        <form class="auth-form" v-on:submit.prevent="handleAgentAuth">
+          <div v-if="isAgentSignup" class="form-group">
+            <label>Full Name</label>
+            <input type="text" v-model="agentAuth.fullName" required placeholder="Enter your full name" />
+          </div>
+
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" v-model="agentAuth.email" required placeholder="Enter your email" />
+          </div>
+
+          <div class="form-group">
+            <label>Password</label>
+            <input type="password" v-model="agentAuth.password" required placeholder="Enter your password" />
+          </div>
+
+          <div v-if="isAgentSignup" class="form-group">
+            <label>Agent License Number</label>
+            <input type="text" v-model="agentAuth.licenseNumber" required placeholder="Enter license number" />
+          </div>
+
+          <button type="submit" class="btn-primary">
+            {{ isAgentSignup ? 'Create Account' : 'Sign In' }}
+          </button>
+        </form>
+
+        <div class="auth-toggle">
+          <p v-if="!isAgentSignup">
+            Don't have an agent account? 
+            <button class="link-btn" v-on:click="isAgentSignup = true">Sign Up</button>
+          </p>
+          <p v-else>
+            Already have an account? 
+            <button class="link-btn" v-on:click="isAgentSignup = false">Sign In</button>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- agent dashboard -->
+    <div v-if="currentPage === 'agentDashboard'" class="page">
+      <div class="dashboard-panel wide">
+        <div class="dashboard-header">
+          <div>
+            <h2 class="dashboard-title">Agent Dashboard</h2>
+            <p class="dashboard-subtitle">Welcome, {{ agentAuth.fullName || 'Agent' }}</p>
+          </div>
+          <button class="btn-secondary" v-on:click="logout()">
+            Logout
+          </button>
+        </div>
+        
+        <div class="quotes-table-wrapper">
+          <table class="quotes-table" v-if="quoteRequests.length > 0">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Client Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="quote in quoteRequests" :key="quote.id">
+                <td><span class="quote-type">{{ quote.quote_type }}</span></td>
+                <td>{{ quote.full_name }}</td>
+                <td>{{ quote.email }}</td>
+                <td>{{ quote.phone }}</td>
+                <td>
+                  <button class="action-btn">View Details</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <div class="empty-state" v-else>
+            <div class="empty-icon">📋</div>
+            <h3>No Quote Requests</h3>
+            <p>Quote requests from clients will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- insurance forms -->
+
+
+    <div v-if="currentPage === 'homeForm'" class="page form-page">
+      <div class="form-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">
+          ← Back to Categories
+        </button>
+
+        <div class="form-header">
+          <div class="form-icon">🏠</div>
+          <h2>Home Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized home insurance quote.</p>
+        </div>
+
+        <form class="quote-form" v-on:submit.prevent="submitHomeForm">
+          <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" v-model="homeForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" v-model="homeForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="homeForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Property Details</h3>
+            <div class="form-grid">
+              <div class="form-group full-width">
+                <label>Property Address</label>
+                <input type="text" v-model="homeForm.address" required placeholder="123 Main St, City, State ZIP" />
+              </div>
+              <div class="form-group">
+                <label>Property Type</label>
+                <select v-model="homeForm.propertyType" required>
+                  <option value="">Select type</option>
+                  <option value="single-family">Single Family Home</option>
+                  <option value="condo">Condo</option>
+                  <option value="townhouse">Townhouse</option>
+                  <option value="multi-family">Multi-Family</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Square Footage</label>
+                <input type="number" v-model="homeForm.sqft" required placeholder="2000" />
+              </div>
+              <div class="form-group">
+                <label>Year Built</label>
+                <input type="number" v-model="homeForm.yearBuilt" required placeholder="1990" />
+              </div>
+              <div class="form-group">
+                <label>Roof Type</label>
+                <select v-model="homeForm.roofType">
+                  <option value="">Select type</option>
+                  <option value="asphalt">Asphalt Shingle</option>
+                  <option value="tile">Tile</option>
+                  <option value="metal">Metal</option>
+                  <option value="flat">Flat</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-submit">
+            Submit Quote Request →
+          </button>
+        </form>
+      </div>
+    </div>
+
+
+    <div v-if="currentPage === 'autoForm'" class="page form-page">
+      <div class="form-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+        <div class="form-header">
+      
+          <h2>Auto Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized auto insurance quote.</p>
+        </div>
+        <form class="quote-form" v-on:submit.prevent="submitAutoForm">
+          <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" v-model="autoForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" v-model="autoForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="autoForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" v-model="autoForm.address" required placeholder="123 Main St" />
+              </div>
+              <div class="form-group">
+                <label>Drivers License #</label>
+                <input type="text" v-model="autoForm.driversLicense" required placeholder="DL123456789" />
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <h3>Vehicle Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Make</label>
+                <input type="text" v-model="autoForm.make" required placeholder="Toyota" />
+              </div>
+              <div class="form-group">
+                <label>Model</label>
+                <input type="text" v-model="autoForm.model" required placeholder="Camry" />
+              </div>
+              <div class="form-group">
+                <label>Year</label>
+                <input type="number" v-model="autoForm.year" required placeholder="2022" />
+              </div>
+              <div class="form-group">
+                <label>VIN Number</label>
+                <input type="text" v-model="autoForm.vin" placeholder="1HGBH41JXMN109186" />
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+    </div>
+
+
+    <div v-if="currentPage === 'generalForm'" class="page form-page">
+      <div class="form-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+        <div class="form-header">
+      
+          <h2>General Liability Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized general liability insurance quote.</p>
+     
+        </div>
+        <form class="quote-form" v-on:submit.prevent="submitGeneralForm">
+          <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" v-model="generalForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" v-model="generalForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="generalForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+              <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" v-model="generalForm.address" required placeholder="123 Main St" />
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <h3>Business Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" v-model="generalForm.businessName" required placeholder="example" />
+              </div>
+              <div class="form-group">
+                <label>Business Address</label>
+                <input type="text" v-model="generalForm.businessAddress" required placeholder="123 Main St" />
+              </div>
+              <div class="form-group">
+                <label>Business Type</label>
+                <input type="text" v-model="generalForm.businessType" required placeholder="construction" />
+              </div>
+              <div class="form-group">
+                <label>Number of Employees</label>
+                <input type="text" v-model="generalForm.numberOfEmployees" required placeholder="123" />
+              </div>
+              <div class="form-group">
+                <label>Annual Revenue</label>
+                <input type="text" v-model="generalForm.annualRevenue" required placeholder="123" />
+              </div>
+              <div class="form-group">
+                <label>Start Year</label>
+                <input type="text" v-model="generalForm.startYear" required placeholder="2000" />
+              </div>
+              <div class="form-group">
+                <label>Payroll Amount</label>
+                <input type="text" v-model="generalForm.payroll" required placeholder="123" />
+              </div>
+              <div class="form-group">
+                <label>Additional Coverage</label>
+                <input type="text" v-model="generalForm.additionalCoverage" placeholder="Inland Marine, Property Insurance, Umbrella etc.." />
+              </div>
+              
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+    </div>
+
+
+
+  <!-- wokerss comp form  -->
+    <div v-if="currentPage === 'workersCompForm'" class="page form-page">
+      <div class="form-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+        <div class="form-header">
+      
+          <h2>Workers Compensation Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized workers compensation insurance quote.</p>
+     
+        </div>
+        <form class="quote-form" v-on:submit.prevent="submitWorkersCompForm">
+          <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" v-model="workersCompForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" v-model="workersCompForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="workersCompForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+              <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" v-model="workersCompForm.address" required placeholder="123 Main St" />
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <h3>Business Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" v-model="workersCompForm.businessName" required placeholder="example" />
+              </div>
+              <div class="form-group">
+                <label>Business Address</label>
+                <input type="text" v-model="workersCompForm.businessAddress" required placeholder="123 Main St" />
+              </div>
+              <div class="form-group">
+                <label>Business Type</label>
+                <input type="text" v-model="workersCompForm.businessType" required placeholder="construction" />
+              </div>
+              <div class="form-group">
+                <label>Federal Identification Number (FEIN)</label>
+                <input type="text" v-model="workersCompForm.FEIN" required placeholder="123" />
+              </div>
+              <div class="form-group">
+                <label>Annual Revenue</label>
+                <input type="text" v-model="workersCompForm.annualRevenue" required placeholder="123" />
+              </div>
+              <div class="form-group">
+                <label>Start Year</label>
+                <input type="text" v-model="workersCompForm.startYear" required placeholder="2000" />
+              </div>
+              <div class="form-group">
+                <label>Payroll Amount</label>
+                <input type="text" v-model="workersCompForm.payroll" required placeholder="123" />
+              </div>
+              
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+    </div>
+
+
+
+    <!-- inland marine form -->
+    <div v-if="currentPage === 'inlandForm'" class="page form-page">
+      <div class="form-panel">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+        <div class="form-header">
+      
+          <h2>Inland Marine Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized inland marine insurance quote.</p>
+     
+        </div>
+        <form class="quote-form" v-on:submit.prevent="submitInlandForm">
+          <div class="form-section">
+            <h3>Personal Information</h3>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" v-model="inlandForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" v-model="inlandForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="inlandForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+              <div class="form-group">
+                <label>Home Address</label>
+                <input type="text" v-model="inlandForm.address" required placeholder="123 Main St" />
+              </div>
+            </div>
+          </div>
+          <div class="form-section">
+            <h3>Construction Information</h3>
+            <div class="form-grid">
+
+              <div class="form-group">
+                <label>Are you the Owner or Contractor?</label>
+                <select v-model="inlandForm.ownerOrContractor" required>
+                  <option value="">Select type</option>
+                  <option value="owner">Owner</option>
+                  <option value="contractor">Contractor</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>Business Name</label>
+                <input type="text" v-model="inlandForm.businessName" required placeholder="example" />
+              </div>
+              <div class="form-group">
+                <label>Business Address</label>
+                <input type="text" v-model="inlandForm.businessAddress" required placeholder="123 Main St" />
+              </div>
+              <div class="form-group">
+                <label>Business Type</label>
+                <input type="text" v-model="inlandForm.businessType" required placeholder="construction" />
+              </div>
+              <div class="form-group">
+                <label>Equipment Type </label>
+                <input type="text" v-model="inlandForm.equipmentType" required placeholder="forklift" />
+              </div>
+              <div class="form-group">
+                <label>Equipment Make</label>
+                <input type="text" v-model="inlandForm.equipmentMake" required placeholder="Caterpillar"/>
+              </div>
+              <div class="form-group">
+                <label>Equipment Model</label>
+                <input type="text" v-model="inlandForm.equipmentModel" required placeholder="320D"/>
+              </div>
+              <div class="form-group">
+                <label>Equipment Serial Number</label>
+                <input type="text" v-model="inlandForm.serialNumber" required placeholder="CAT0320DJABC12345" />
+              </div>
+              <div class="form-group">
+                <label>Equipment Value ($)</label>
+                <input type="text" v-model="inlandForm.equipmentValue" required placeholder="75000"/>
+              </div>
+              <div class="form-group">
+                <label>Description of Operations</label>
+                <input type="text" v-model="inlandForm.descriptionOfOperation" required placeholder="building home"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Estimation Completion Date</label>
+              <input type="text" v-model="inlandForm.estimatedCompletionDate" required placeholder="End of May, 2026"/>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+    </div>
+
+
+
+
+      <!-- life form  -->
+      <div v-if="currentPage === 'lifeForm'" class="page form-page">
+        <div class="form-panel">
+          <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+          <div class="form-header">
+        
+            <h2>Life Insurance Quote</h2>
+            <p>Please provide your information to receive a personalized life insurance quote.</p>
+       
+          </div>
+          <form class="quote-form" v-on:submit.prevent="submitLifeForm">
+            <div class="form-section">
+              <h3>Personal Information</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" v-model="lifeForm.fullName" required placeholder="John Doe" />
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" v-model="lifeForm.email" required placeholder="john@example.com" />
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" v-model="lifeForm.phone" required placeholder="(555) 123-4567" />
+                </div>
+                <div class="form-group">
+                  <label>Home Address</label>
+                  <input type="text" v-model="lifeForm.address" required placeholder="123 Main St" />
+                </div>
+                <div class="form-group">
+                  <label>Date Of Birth</label>
+                  <input type="number" v-model="lifeForm.dateOfBirth" required placeholder="00/00/0000" />
+                </div>
+              </div>
+            </div>
+            <div class="form-section">
+              <h3>Policy Information</h3>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label>Beneficiarie Names</label>
+                  <input type="text" v-model="lifeForm.beneficiaryNames" required placeholder="John Doe"/>
+                </div>
+                <div class="form-group">
+                  <label>Smoker Status</label>
+                  <select v-model="lifeForm.smokerStatus" required>
+                    <option value="">Select status</option>
+                    <option value="non-smoker">Non-Smoker</option>
+                    <option value="smoker">Smoker</option>
+                    <option value="former-smoker">Former Smoker</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label>Annual Income</label>
+                  <input type="text" v-model="lifeForm.annualIncome" required placeholder="123" />
+                </div>
+                <div class="form-group">
+                  <label>Medical History</label>
+                  <input type="text" v-model="lifeForm.medicalHistory" required placeholder="123" />
+                </div>
+                
+              </div>
+            </div>
+            <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+          </form>
+        </div>
+      </div>
+
+
+
+      <!-- other form -->
+      <div v-if="currentPage === 'otherForm'" class="page form-page">
+        <div class="form-panel">
+          <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+          
+          <div class="form-header">
+            <h2>Other Insurance Inquiry</h2>
+            <p>Please provide your contact information and details about your request.</p>
+          </div>
+
+          <form class="quote-form" v-on:submit.prevent="submitOtherForm">
+            
+            <div class="form-section">
+              <h3>Contact Information</h3>
+              <div class="form-grid">
+
+                <div class="form-group">
+                  <label>Full Name</label>
+                  <input type="text" v-model="otherForm.fullName" required placeholder="John Doe"/>
+                </div>
+                <div class="form-group">
+                  <label>Email Address</label>
+                  <input type="email" v-model="otherForm.email" required placeholder="john@example.com"/>
+                </div>
+                <div class="form-group">
+                  <label>Phone Number</label>
+                  <input type="tel" v-model="otherForm.phone" required placeholder="(555) 123-4567"/>
+                </div>
+                <div class="form-group">
+                  <label>Type of Insurance Needed</label>
+                  <input type="tel" v-model="otherForm.coverageDetails" placeholder="Example: Flood, Umbrella, Cyber, etc."/>
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary btn-submit">
+              Submit Inquiry →
+            </button>
+
+          </form>
+        </div>
+      </div>
+
+
+
+
+
+
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-content">
+        <div class="footer-copy">
+          <p>&copy; 2026 Riverside Business Insurance Agency, Inc. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
