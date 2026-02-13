@@ -170,8 +170,8 @@ const app = createApp({
     async handleClientAuth() {
       try {
         const endpoint = this.isClientSignup
-          ? "http://localhost:8080/auth/client/signup"
-          : "http://localhost:8080/auth/client/login";
+          ? "https://riverside-api.onrender.com/auth/client/signup"
+          : "https://riverside-api.onrender.com/auth/client/login";
     
         const body = this.isClientSignup
           ? {
@@ -297,7 +297,7 @@ const app = createApp({
     async sendQuote(quoteType, fullName, email, phone, payload) {
 
       try {
-        const response = await fetch("http://localhost:8080/quotes", {
+        const response = await fetch("https://riverside-api.onrender.com/quotes", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -327,7 +327,7 @@ const app = createApp({
 // will load Quotes for the agent dashboard
     async loadQuotes() {
       try {
-        const res = await fetch("http://localhost:8080/quotes");
+        const res = await fetch("https://riverside-api.onrender.com/quotes");
         if (!res.ok) {
           console.error("Retrieving quotes failed", res.status);
           return;
@@ -473,8 +473,8 @@ const app = createApp({
     async handleAgentAuth() {
       try {
         const endpoint = this.isAgentSignup
-          ? "http://localhost:8080/auth/agent/signup"
-          : "http://localhost:8080/auth/agent/login";
+          ? "https://riverside-api.onrender.com/auth/agent/signup"
+          : "https://riverside-api.onrender.com/auth/agent/login";
     
         const body = this.isAgentSignup
           ? {
