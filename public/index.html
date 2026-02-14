@@ -22,7 +22,7 @@
 
       <nav class="nav-links">
         <button class="nav-link" v-on:click="goTo('agents')">Agents</button>
-        <button class="nav-link" v-on:click="goTo('about')">About</button>
+        <button class="nav-link" v-on:click="goTo('about')">Carriers</button>
         <button class="nav-link" v-on:click="goTo('contact')">Contact</button>
         <div class="nav-divider"></div>
         <button class="agent-login" v-on:click="goTo('agentLogin')">
@@ -58,7 +58,7 @@
                 <span class="stat-label">Clients Protected</span>
               </div>
               <div class="stat-card">
-                <span class="stat-number">50+</span>
+                <span class="stat-number">30+</span>
                 <span class="stat-label">Carrier Partners</span>
               </div>
             </div>
@@ -84,6 +84,18 @@
       </div>
     </div>
 
+
+
+
+
+
+
+
+
+
+
+
+
     <!-- nav pages -->
     <div v-if="currentPage === 'agents'" class="page">
       <div class="content-panel">
@@ -95,7 +107,7 @@
           <p class="panel-subtitle">Meet the team dedicated to protecting what matters most to you.</p>
         </div>
         <div class="panel-content">
-          <p>This is where you can list agents, bios, and contact buttons.</p>
+          <p> ADD BLAKE, DARWIN, JONARAE, MAX and NALEEA </p>
         </div>
       </div>
     </div>
@@ -106,11 +118,11 @@
           ← Back to Home
         </button>
         <div class="panel-header">
-          <h2 class="panel-title">About Riverside</h2>
-          <p class="panel-subtitle">Serving our community with integrity and excellence since 2010.</p>
+          <h2 class="panel-title">Our Carriers</h2>
+          <p class="panel-subtitle">The carriers we work with.</p>
         </div>
         <div class="panel-content">
-          <p>Add your agency story, mission, and carriers here.</p>
+          <p>NEED TO GATHER LIST OF ALL CARRIERS</p>
         </div>
       </div>
     </div>
@@ -125,12 +137,21 @@
           <p class="panel-subtitle">We're here to answer your questions and provide guidance.</p>
         </div>
         <div class="panel-content">
-          <p>Add phone, email, location, and a contact form here.</p>
+          <p> NEED TO ADD CONTACT INFOR</p>
         </div>
       </div>
     </div>
 
 
+
+
+
+
+
+
+
+
+    
 
     <!-- categories page with card carasoul -->
     <div v-if="currentPage === 'categories'" class="page categories-page">

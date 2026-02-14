@@ -65,6 +65,29 @@ app.post("/quotes", async (req, res) => {
 
 
 
+
+
+//DELETE completed quotes on the agents dashbord
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //agent sign up
 app.post("/auth/agent/signup", async (req, res) => {
   try {
