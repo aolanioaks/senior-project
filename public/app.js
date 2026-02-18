@@ -10,7 +10,7 @@ const app = createApp({
       activeIndex: 3,
       categories: [
         { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm", imageUrl:"/home.avif"},
-        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm" },
+        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm", imageUrl:"/auto.jpg" },
         { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm" },
         { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm" },
         { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm", imageUrl:"/inland.avif" },
