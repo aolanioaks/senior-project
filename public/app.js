@@ -9,13 +9,13 @@ const app = createApp({
  
       activeIndex: 3,
       categories: [
-        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm", imageUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80" },
-        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm", imageUrl: "https://images.unsplash.com/photo-1517949908119-720ef9b9f0fd?auto=format&fit=crop&w=1200&q=80" },
-        { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm", imageUrl: "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80" },
-        { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm", imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80" },
-        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm", imageUrl: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80" },
-        { key: "life", title: "Life Insurance", sub: "Coverage for your family", formPage: "lifeForm", imageUrl: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1200&q=80" },
-        { key: "other", title: "Other Insurance", sub: "Coverage for motorcycle, boat, umbrella, etc..", formPage: "otherForm", imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" },
+        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm" },
+        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm" },
+        { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm" },
+        { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm" },
+        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm" },
+        { key: "life", title: "Life Insurance", sub: "Coverage for your family", formPage: "lifeForm" },
+        { key: "other", title: "Other Insurance", sub: "Coverage for mortocycle, boat, umbrella, etc..", formPage: "otherForm" },
       ],
 
       // CLIENT AUTHENTICATION
@@ -247,6 +247,10 @@ const app = createApp({
       this.goTo("landing");
       alert("Logged out successfully!");
     },
+
+
+
+
 
     // // carousel
     // prev() {
