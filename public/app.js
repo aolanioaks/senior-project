@@ -13,9 +13,9 @@ const app = createApp({
         { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm" },
         { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm" },
         { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm" },
-        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm" },
+        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm", imageUrl:"/inland.avif" },
         { key: "life", title: "Life Insurance", sub: "Coverage for your family", formPage: "lifeForm" },
-        { key: "other", title: "Other Insurance", sub: "Coverage for mortocycle, boat, umbrella, etc..", formPage: "otherForm" },
+        { key: "other", title: "Other Insurance", sub: "Coverage for mortocycle, boat, umbrella, etc..", formPage: "otherForm", imageUrl:"/other.avif" },
       ],
 
       // CLIENT AUTHENTICATION
