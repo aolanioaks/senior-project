@@ -9,13 +9,13 @@ const app = createApp({
  
       activeIndex: 3,
       categories: [
-        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm" },
-        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm" },
-        { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm" },
-        { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm" },
-        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm" },
-        { key: "life", title: "Life Insurance", sub: "Coverage for your family", formPage: "lifeForm" },
-        { key: "other", title: "Other Insurance", sub: "Coverage for mortocycle, boat, umbrella, etc..", formPage: "otherForm" },
+        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm", imageUrl: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?auto=format&fit=crop&w=1200&q=80" },
+        { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm", imageUrl: "https://images.unsplash.com/photo-1517949908119-720ef9b9f0fd?auto=format&fit=crop&w=1200&q=80" },
+        { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm", imageUrl: "https://images.unsplash.com/photo-1521791055366-0d553872125f?auto=format&fit=crop&w=1200&q=80" },
+        { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm", imageUrl: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=1200&q=80" },
+        { key: "inlandMarine", title: "Inland Marine", sub: "Coverage for equipment, builders risk and new constructions", formPage: "inlandForm", imageUrl: "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1200&q=80" },
+        { key: "life", title: "Life Insurance", sub: "Coverage for your family", formPage: "lifeForm", imageUrl: "https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=1200&q=80" },
+        { key: "other", title: "Other Insurance", sub: "Coverage for motorcycle, boat, umbrella, etc..", formPage: "otherForm", imageUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80" },
       ],
 
       // CLIENT AUTHENTICATION
@@ -248,49 +248,59 @@ const app = createApp({
       alert("Logged out successfully!");
     },
 
-    // carousel
-    prev() {
-      this.activeIndex = (this.activeIndex - 1 + this.categories.length) % this.categories.length;
+    // // carousel
+    // prev() {
+    //   this.activeIndex = (this.activeIndex - 1 + this.categories.length) % this.categories.length;
+    // },
+
+    // next() {
+    //   this.activeIndex = (this.activeIndex + 1) % this.categories.length;
+    // },
+
+    // goCard(index) {
+    //   this.activeIndex = index;
+    // },
+
+    // onWheel(event) {
+    //   if (event.deltaY < 0) this.prev();
+    //   else this.next();
+    // },
+
+    // cardStyle(index) {
+    //   const len = this.categories.length;
+    //   let offset = index - this.activeIndex;
+
+    //   if (offset > len / 2) offset -= len;
+    //   if (offset < -len / 2) offset += len;
+
+    //   const abs = Math.abs(offset);
+    //   const x = offset * 190;
+    //   const scale = 1 - abs * 0.12;
+    //   const rotate = offset * -18;
+    //   const z = 50 - abs;
+    //   const opacity = abs > 4 ? 0 : 1 - abs * 0.18;
+    //   const blur = abs > 2 ? (abs - 2) * 1.2 : 0;
+
+    //   return {
+    //     transform: `translateX(${x}px) scale(${Math.max(scale, 0.55)}) rotateY(${rotate}deg)`,
+    //     zIndex: z,
+    //     opacity,
+    //     filter: `blur(${blur}px)`,
+    //     pointerEvents: abs > 4 ? "none" : "auto",
+    //   };
+    // },
+
+    carouselNext() {
+      const slide = this.$refs.carouselSlide;
+      if (!slide || !slide.children.length) return;
+      slide.appendChild(slide.children[0]);
     },
-
-    next() {
-      this.activeIndex = (this.activeIndex + 1) % this.categories.length;
+    
+    carouselPrev() {
+      const slide = this.$refs.carouselSlide;
+      if (!slide || !slide.children.length) return;
+      slide.prepend(slide.children[slide.children.length - 1]);
     },
-
-    goCard(index) {
-      this.activeIndex = index;
-    },
-
-    onWheel(event) {
-      if (event.deltaY < 0) this.prev();
-      else this.next();
-    },
-
-    cardStyle(index) {
-      const len = this.categories.length;
-      let offset = index - this.activeIndex;
-
-      if (offset > len / 2) offset -= len;
-      if (offset < -len / 2) offset += len;
-
-      const abs = Math.abs(offset);
-      const x = offset * 190;
-      const scale = 1 - abs * 0.12;
-      const rotate = offset * -18;
-      const z = 50 - abs;
-      const opacity = abs > 4 ? 0 : 1 - abs * 0.18;
-      const blur = abs > 2 ? (abs - 2) * 1.2 : 0;
-
-      return {
-        transform: `translateX(${x}px) scale(${Math.max(scale, 0.55)}) rotateY(${rotate}deg)`,
-        zIndex: z,
-        opacity,
-        filter: `blur(${blur}px)`,
-        pointerEvents: abs > 4 ? "none" : "auto",
-      };
-    },
-
-
 
 
 
@@ -311,7 +321,7 @@ const app = createApp({
 
         if (!response.ok) {
           const text = await response.text().catch(() => "");
-          console.error("POST /quotes failed:", response.status, text);
+          console.error("Submitting quote failed:", response.status, text);
           alert("Quote submission failed.");
           return null;
         }
@@ -324,7 +334,7 @@ const app = createApp({
     },
 
 
-// will load Quotes for the agent dashboard
+// loading quotes for the agent dashboard
     async loadQuotes() {
       try {
         const res = await fetch("https://riverside-api.onrender.com/quotes");

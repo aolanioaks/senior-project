@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-  <!-- <link rel="stylesheet" href="styles.css" /> -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
 <body>
@@ -146,14 +146,54 @@
 
 
 
+<!-- categories page with new carousel -->
+<div v-if="currentPage === 'categories'" class="page categories-page">
+  <div class="categories-container">
+    <button class="back-btn" v-on:click="goTo('landing')">
+      ← Back to Home
+    </button>
+
+    <div class="category-header">
+      <h2 class="category-title">Select Your Coverage</h2>
+      <p class="category-desc">
+        Choose the type of insurance you need to receive a personalized quote from our expert agents.
+      </p>
+    </div>
+
+    <!-- NEW CAROUSEL -->
+    <div class="carousel2-container">
+      <div class="carousel2-slide" ref="carouselSlide">
+        <div
+          class="carousel2-item"
+          v-for="card in categories"
+          :key="card.key"
+          :style="{ backgroundImage: `url(${card.imageUrl})` }"
+        >
+          <div class="carousel2-content">
+            <div class="carousel2-name">{{ card.title }}</div>
+            <div class="carousel2-des">{{ card.sub }}</div>
+
+            <button class="carousel2-btn" v-on:click="requestQuote(card.formPage)">
+              Request Quote →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel2-buttons">
+        <button class="carousel2-prev" v-on:click="carouselPrev">◁</button>
+        <button class="carousel2-next" v-on:click="carouselNext">▷</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
 
 
 
-
-    <!-- categories page with card carasoul -->
+    <!-- categories page with card carasoul
     <div v-if="currentPage === 'categories'" class="page categories-page">
       <div class="categories-container">
         <button class="back-btn" v-on:click="goTo('landing')">
@@ -198,7 +238,7 @@
           ></button>
         </div>
       </div>
-    </div>
+    </div> -->
 
     
     <!-- client login/signup page they must in order to submit a quote  -->

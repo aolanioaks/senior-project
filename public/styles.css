@@ -1442,3 +1442,133 @@ footer {
     text-align: center;
   }
 }
+
+/* =========================
+   NEW "ITEM" CAROUSEL (carousel2)
+   ========================= */
+
+   .carousel2-container {
+    position: relative;
+    width: min(1000px, 95vw);
+    height: 480px;
+    margin: 3rem auto 0;
+    border-radius: 20px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+    overflow: hidden;
+  }
+  
+  .carousel2-slide {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .carousel2-item {
+    width: 220px;
+    height: 300px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    border-radius: 18px;
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.55);
+    transition: all 0.5s ease;
+    overflow: hidden;
+  }
+  
+  /* main (active) card */
+  .carousel2-slide .carousel2-item:nth-child(1),
+  .carousel2-slide .carousel2-item:nth-child(2) {
+    top: 0;
+    left: 0;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    box-shadow: none;
+  }
+  
+  /* stacked cards to the right */
+  .carousel2-slide .carousel2-item:nth-child(3) { left: 55%; }
+  .carousel2-slide .carousel2-item:nth-child(4) { left: calc(55% + 240px); }
+  .carousel2-slide .carousel2-item:nth-child(5) { left: calc(55% + 480px); }
+  
+  .carousel2-slide .carousel2-item:nth-child(n + 6) {
+    left: calc(55% + 720px);
+    opacity: 0;
+  }
+  
+  /* text overlay only on the “front” slide */
+  .carousel2-content {
+    position: absolute;
+    top: 50%;
+    left: 90px;
+    width: min(420px, 70vw);
+    transform: translate(0, -50%);
+    color: white;
+    display: none;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.7);
+  }
+  
+  .carousel2-slide .carousel2-item:nth-child(2) .carousel2-content {
+    display: block;
+  }
+  
+  .carousel2-name {
+    font-size: 42px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  
+  .carousel2-des {
+    margin-top: 12px;
+    margin-bottom: 18px;
+    color: rgba(255,255,255,0.85);
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  
+  .carousel2-btn {
+    padding: 10px 18px;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    font-weight: 700;
+    background: rgba(255,255,255,0.85);
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  
+  .carousel2-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+  }
+  
+  .carousel2-buttons {
+    position: absolute;
+    bottom: 18px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+  }
+  
+  .carousel2-buttons button {
+    width: 44px;
+    height: 38px;
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.35);
+    background: rgba(255,255,255,0.18);
+    color: white;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease;
+  }
+  
+  .carousel2-buttons button:hover {
+    background: rgba(255,255,255,0.28);
+    transform: scale(1.06);
+  }
+  
