@@ -9,7 +9,7 @@ const app = createApp({
  
       activeIndex: 3,
       categories: [
-        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm" },
+        { key: "home", title: "Home Insurance", sub: "Protect your home and belongings", formPage: "homeForm", imageUrl:"/home.avif"},
         { key: "auto", title: "Auto Insurance", sub: "Coverage for your vehicle", formPage: "autoForm" },
         { key: "generalLiability", title: "General Liability", sub: "Protect your business assets", formPage: "generalForm" },
         { key: "workers", title: "Workers Comp", sub: "Protect your employees", formPage: "workersCompForm" },
