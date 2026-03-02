@@ -67,17 +67,14 @@
       </div>
       <div class="landing-features">
         <div class="feature-item">
-          <!-- <div class="feature-icon">ADD AN ICON FOR PROTECTION</div> -->
           <h3>Complete Protection</h3>
           <p>Comprehensive coverage options tailored to your unique needs</p>
         </div>
         <div class="feature-item">
-          <!-- <div class="feature-icon">ADD AN ICON OR IMAGE</div> -->
           <h3>Expert Agents</h3>
           <p>Dedicated professionals committed to your peace of mind</p>
         </div>
         <div class="feature-item">
-          <!-- <div class="feature-icon">ADD AN ICON OR IMAGE</div> -->
           <h3>Fast Quotes</h3>
           <p>Quick, accurate quotes with no obligation required</p>
         </div>
@@ -404,6 +401,9 @@
                 <td>{{ quote.phone }}</td>
                 <td>
                   <button class="action-btn">View Details</button>
+                </td>
+                <td>
+                  <button class="delete-btn" v-on:click="deleteQuote(quote.id)">Delete</button>
                 </td>
               </tr>
             </tbody>

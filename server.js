@@ -68,7 +68,30 @@ app.post("/quotes", async (req, res) => {
 
 
 //DELETE completed quotes on the agents dashbord
+app.delete("/quotes/:id", async (req, res) => {
+  try {
+    const quoteId = req.params.id;
+    const result = await pool.query(
+      `DELETE FROM quote_requests WHERE id = $1 RETURNING *`,
+      [quoteId]
+    );
 
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Quote was not found" });
+    }
+
+    res.status(200).json({ 
+      message: "Quote deleted successfully", 
+      quote: result.rows[0] 
+    });
+  } catch (err) {
+    console.error("Error deleting the quote, ", err);
+    res.status(500).json({ 
+      error: "Database error", 
+      detail: err.message 
+    });
+  }
+});
 
 
 

@@ -252,48 +252,6 @@ const app = createApp({
 
 
 
-    // // carousel
-    // prev() {
-    //   this.activeIndex = (this.activeIndex - 1 + this.categories.length) % this.categories.length;
-    // },
-
-    // next() {
-    //   this.activeIndex = (this.activeIndex + 1) % this.categories.length;
-    // },
-
-    // goCard(index) {
-    //   this.activeIndex = index;
-    // },
-
-    // onWheel(event) {
-    //   if (event.deltaY < 0) this.prev();
-    //   else this.next();
-    // },
-
-    // cardStyle(index) {
-    //   const len = this.categories.length;
-    //   let offset = index - this.activeIndex;
-
-    //   if (offset > len / 2) offset -= len;
-    //   if (offset < -len / 2) offset += len;
-
-    //   const abs = Math.abs(offset);
-    //   const x = offset * 190;
-    //   const scale = 1 - abs * 0.12;
-    //   const rotate = offset * -18;
-    //   const z = 50 - abs;
-    //   const opacity = abs > 4 ? 0 : 1 - abs * 0.18;
-    //   const blur = abs > 2 ? (abs - 2) * 1.2 : 0;
-
-    //   return {
-    //     transform: `translateX(${x}px) scale(${Math.max(scale, 0.55)}) rotateY(${rotate}deg)`,
-    //     zIndex: z,
-    //     opacity,
-    //     filter: `blur(${blur}px)`,
-    //     pointerEvents: abs > 4 ? "none" : "auto",
-    //   };
-    // },
-
     carouselNext() {
       const slide = this.$refs.carouselSlide;
       if (!slide || !slide.children.length) return;
@@ -353,6 +311,17 @@ const app = createApp({
     },
 
 
+    async deleteQuote(id) {
+      try {
+        const res = await fetch('https://riverside-api.onrender.com/quotes/${id}', {
+          method: 'DELETE',
+        });
+        this.loadQuotes();
+      } catch (err) {
+        console.error("deleting quote error:", err);
+        alert("Error deleting quote.");
+      }
+    },
 
 
 
