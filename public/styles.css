@@ -1018,6 +1018,24 @@ body::before {
   transform: translateY(-1px);
 }
 
+.delete-btn {
+  padding: 0.5rem 1.125rem;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.delete-btn:hover {
+  background: #333;
+  transform: translateY(-1px);
+}
+
 /* ============================================
    QUOTE FORMS
    ============================================ */

@@ -316,7 +316,7 @@ const app = createApp({
         const res = await fetch(`https://riverside-api.onrender.com/quotes/${id}`, {
           method: 'DELETE',
         });
-        this.loadQuotes();
+        await this.loadQuotes();
       } catch (err) {
         console.error("deleting quote error:", err);
         alert("Error deleting quote.");
