@@ -331,7 +331,11 @@ const app = createApp({
       this.selectedQuoteId = this.selectedQuoteId === id ? null : id;
     },
 
-
+    formatQuoteDetails(key) {
+      return key
+        .replace(/([A-Z])/g, " $1") 
+        .replace(/^./, str => str.toUpperCase());
+    }
 
 
 

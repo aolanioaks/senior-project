@@ -362,12 +362,10 @@
             
                 <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
                   <td colspan="6">
-                    <div class="quote-details-box">
-                      <p><strong>Quote Type:</strong> {{ quote.quote_type }}</p>
-                      <p><strong>Name:</strong> {{ quote.full_name }}</p>
-                      <p><strong>Email:</strong> {{ quote.email }}</p>
-                      <p><strong>Phone:</strong> {{ quote.phone }}</p>
-                      <pre class="payload-box">{{ JSON.stringify(quote.payload, null, 2) }}</pre>
+                    <div v-for="(value, key) in quote.payload" :key="key">
+                      <p>
+                        <strong>{{ formatLabel(key) }}:</strong> {{ value }}
+                      </p>
                     </div>
                   </td>
                 </tr>
