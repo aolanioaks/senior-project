@@ -40,6 +40,9 @@ const app = createApp({
 
       
       quoteRequests: [],
+      //to retrieve quote details in teh agent dashboard
+      selectedQuoteId: null,
+
 
       // HOME form data
       homeForm: {
@@ -322,6 +325,23 @@ const app = createApp({
         alert("Error deleting quote.");
       }
     },
+
+
+    quoteDetails(id) {
+      this.selectedQuoteId = this.selectedQuoteId === id ? null : id;
+    },
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
