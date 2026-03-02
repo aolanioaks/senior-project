@@ -313,7 +313,7 @@ const app = createApp({
 
     async deleteQuote(id) {
       try {
-        const res = await fetch('https://riverside-api.onrender.com/quotes/${id}', {
+        const res = await fetch(`https://riverside-api.onrender.com/quotes/${id}`, {
           method: 'DELETE',
         });
         this.loadQuotes();
