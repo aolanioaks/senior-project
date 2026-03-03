@@ -183,7 +183,7 @@ body::before {
   position: relative;
   overflow: hidden;
 }
-
+/* 
 .agent-login::before {
   content: '';
   position: absolute;
@@ -197,17 +197,36 @@ body::before {
 
 .agent-login:hover::before {
   left: 100%;
-}
+} */
 
 .agent-login:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
   background: #333;
 }
-
-.agent-icon {
-  width: 18px;
-  height: 18px;
+.client-login {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.5rem;
+  background: #1a1a1a;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  position: relative;
+  overflow: hidden;
+}
+.client-login:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  background: #333;
 }
 
 /* ============================================
