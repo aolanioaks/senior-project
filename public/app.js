@@ -248,6 +248,9 @@ const app = createApp({
     logout() {
       this.isClientLoggedIn = false;
       this.isAgentLoggedIn = false;
+      localStorage.removeItem("client_token");
+      localStorage.removeItem("agent_token");
+      localStorage.removeItem("client_email");
       this.clientAuth = { fullName: "", email: "", password: "", phone: "" };
       this.agentAuth = { fullName: "", email: "", password: "", licenseNumber: "" };
       this.goTo("landing");
