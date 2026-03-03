@@ -154,7 +154,10 @@ const app = createApp({
     async goTo(page) {
       console.log("Go to: ", page);
       this.currentPage = page;
-      if (page === "clientDashboard" || page === "agentDashboard") {
+      if (page === "clientDashboard") {
+        await this.loadClientQuotes();
+      } 
+      if (page === "agetnDashboard") {
         await this.loadQuotes();
       }
     },
@@ -334,13 +337,30 @@ const app = createApp({
     formatQuoteDetails(key) {
       return key
         .replace(/([A-Z])/g, " $1") 
-        .replace(/^./, str => str.toUpperCase());
+        .replace(/^./, str => str.toUpperCase());df
     },
 
 
 
+      // client dashboard loading quotes
+    async loadClientQuotes() {
+      try {
+        const res = await fetch("https://riverside-api.onrender.com/quotes");
 
+        if (!res.ok) {
+          console.error("Retrieving quotes failed", res.status);
+          return;
+        }
+        const all = await res.json();
+        const email = (this.clientAuth.email || "").toLowerCase();
+        this.quoteRequests = all.filter(
+          q => (q.email || "").toLowerCase() === email
+        );
 
+      } catch (err) {
+        console.error("loading client quotes error:", err);
+      }
+    },
 
 
 
@@ -363,7 +383,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("Home Insurance Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },
@@ -381,7 +401,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("Auto Insurance Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },
@@ -399,7 +419,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("General Liability Insurance Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },
@@ -417,7 +437,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("Workers Comp Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },
@@ -434,7 +454,7 @@ const app = createApp({
     
         if (!saved) return;
     
-        await this.loadQuotes();
+        await this.loadClientQuotes();
         alert("Inland Marine Quote Request Submitted! An agent will contact you soon.");
         this.goTo("clientDashboard");
     },
@@ -452,7 +472,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("Life Insurance Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },
@@ -470,7 +490,7 @@ const app = createApp({
 
       if (!saved) return;
 
-      await this.loadQuotes();
+      await this.loadClientQuotes();
       alert("Insurance Quote Request Submitted! An agent will contact you soon.");
       this.goTo("clientDashboard");
     },

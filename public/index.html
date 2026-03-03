@@ -240,6 +240,13 @@
       </div>
     </div>
 
+
+
+
+
+
+
+
     <!-- client dashboard -->
     <div v-if="currentPage === 'clientDashboard'" class="page">
       <div class="dashboard-panel">
@@ -255,17 +262,60 @@
         
         <div class="dashboard-content">
           <div class="empty-state" v-if="quoteRequests.length === 0">
-            <div class="empty-icon">📋</div>
             <h3>No Quote Requests Yet</h3>
             <p>Start by requesting a quote for your insurance needs.</p>
           </div>
           
+          <div classs="quotes-table-wrapper" v-if="quoteRequests.length > 0" >
+            <table class="quotes-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                <template v-for="quote in quoteRequests" :key="quote.id">
+                  <tr>
+                    <td><span class="quote-type">{{ quote.quote_type }}</span></td>
+                    <td>{{ quote.full_name }}</td>
+                    <td>{{ quote.email }}</td>
+                    <td>{{ quote.phone }}</td>
+                    <td>
+                      <button class="action-btn" v-on:click="quoteDetails(quote.id)">
+                        {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
+                      </button>
+                    </td>
+                  </tr>
+                  <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
+                    <td colspan="5">
+                      <div v-for="(value, key) in quote.payload" :key="key">
+                        <p>
+                          <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
+                        </p>
+                      </div>
+                    </td>
+                  </tr>
+                </template>
+              </tbody>
+            </table>
+          </div>
           <button class="btn-primary" v-on:click="goTo('categories')">
             + Request New Quote
           </button>
         </div>
       </div>
     </div>
+
+
+
+
+
+
+
 
     <!-- agent login page -->
     <div v-if="currentPage === 'agentLogin'" class="page">
@@ -374,13 +424,13 @@
           </table>
           
           <div class="empty-state" v-else>
-            <div class="empty-icon">📋</div>
             <h3>No Quote Requests</h3>
             <p>Quote requests from clients will appear here.</p>
           </div>
         </div>
       </div>
     </div>
+
 
     <!-- insurance forms -->
 
