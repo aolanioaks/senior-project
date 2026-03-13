@@ -107,12 +107,39 @@
           <p class="panel-subtitle">Meet the team dedicated to protecting what matters most to you.</p>
         </div>
         <div class="panel-content">
-          <p> ADD BLAKE, DARWIN, JONARAE, MAX and NALEEA </p>
+
+          <div class="agent-box">
+            <img src="blake.jpg" class="agent-image">
+            <p>Blake Oaks</p>
+          </div>
+          <div class="agent-box">
+            <img src="darwin.jpg" class="agent-image">
+            <p>Darwin Leavitt</p>
+          </div>
+          <div class="agent-box">
+            <img src="jonarae.jpg" class="agent-image">
+            <p>Jonarae Banks</p>
+          </div>
+          <div class="agent-box">
+            <img src="max.jpg" class="agent-image">
+            <p>Max Leavitt </p>
+          </div>
+          <div class="agent-box">
+            <img src="naleea.jpg" class="agent-image">
+            <p>Naleea Anderson </p>
+          </div>
         </div>
       </div>
     </div>
 
-    <div v-if="currentPage === 'about'" class="page">
+
+
+
+
+
+
+
+    <div v-if="currentPage === 'carriers'" class="page">
       <div class="content-panel">
         <button class="back-btn" v-on:click="goTo('landing')">
           ← Back to Home
@@ -127,6 +154,10 @@
       </div>
     </div>
 
+
+
+
+    
     <div v-if="currentPage === 'contact'" class="page">
       <div class="content-panel">
         <button class="back-btn" v-on:click="goTo('landing')">
