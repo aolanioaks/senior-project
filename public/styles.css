@@ -589,8 +589,9 @@ body::before {
 
 .panel-content{
   display: flex;
-  flex-direction: space-between;
-  gap: 2rem;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: nowrap;
 }
 
 .agent-box {
