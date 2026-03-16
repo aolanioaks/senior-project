@@ -98,35 +98,41 @@
 
     <!-- nav pages -->
     <div v-if="currentPage === 'agents'" class="page">
-      <div class="content-panel">
-        <button class="back-btn" v-on:click="goTo('landing')">
-          ← Back to Home
-        </button>
-        <div class="panel-header">
-          <h2 class="panel-title">Our Agents</h2>
-          <p class="panel-subtitle">Meet the team dedicated to protecting what matters most to you.</p>
-        </div>
-        <div class="panel-content">
+      <div class="agents-section">
+        <h1 class="agents-headings">AGENTS</h1>
 
-          <div class="agent-box">
-            <img src="image.jpeg" class="agent-image">
-            <p>Blake Oaks</p>
+        <div class="agents-row">
+          <div class="agents-card">
+            <p class="agent-name">Blake O. </p>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
-          <div class="agent-box">
-            <img src="image.jpeg" class="agent-image">
-            <p>Darwin Leavitt</p>
+        </div>
+
+        <div class="agents-row">
+          <div class="agents-card">
+            <p class="agent-name">Darwin L. </p>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
-          <div class="agent-box">
-            <img src="image.jpeg" class="agent-image">
-            <p>Jonarae Banks</p>
+        </div>
+
+        <div class="agents-row">
+          <div class="agents-card">
+            <p class="agent-name">Jonarae B. </p>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
-          <div class="agent-box">
-            <img src="image.jpeg" class="agent-image">
-            <p>Max Leavitt </p>
+        </div>
+
+        <div class="agents-row">
+          <div class="agents-card">
+            <p class="agent-name">Max L. </p>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
-          <div class="agent-box">
-            <img src="image.jpeg" class="agent-image">
-            <p>Naleea Anderson </p>
+        </div>
+
+        <div class="agents-row">
+          <div class="agents-card">
+            <p class="agent-name">Naleea A. </p>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
         </div>
       </div>
