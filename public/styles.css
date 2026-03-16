@@ -602,38 +602,38 @@ body::before {
   flex-wrap: nowrap;
 }
 
-.agent-row {
+.agents-row {
   display: flex;
   justify-content: center;
-  gap: 18px;
-  flex-wrap: nowrap;
+  gap: 20px;
+  margin-top: 40px;
 }
 
 .agent-card {
-  width: 250px;
-  height: 330px;
-  background: #a6a6a6;
+  width: 220px;
+  height: 280px;
+  background: #a9a9a9;
   border-radius: 18px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 24px;
+  padding-top: 20px;
   box-sizing: border-box;
 }
 
-
 .agent-name {
   color: white;
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 18px 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .agent-photo {
-  width: 100%;
-  height: 240px;
-  object-fit: cover;
+  width: 180px;      /* smaller width */
+  height: 180px;     /* same height = square */
+  object-fit: cover; /* crops image nicely */
+  border-radius: 12px;
   display: block;
 }
 
