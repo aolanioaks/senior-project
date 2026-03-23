@@ -727,6 +727,43 @@ body::before {
 
 
 
+.contact-grid{
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+gap: 1.25rem;
+margin-bottom: 2rem;
+}
+
+
+.contact-card {
+  background-color: #3a3a3a;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+
+.contact-info{
+  color: black;
+  font-size: 16px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+
+
+.contact-info h3 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.contact-info p {
+  color: #555;
+  font-size: 14px;
+}
 
 
 
