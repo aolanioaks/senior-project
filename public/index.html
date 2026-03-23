@@ -361,6 +361,7 @@
                   <th>Email</th>
                   <th>Phone</th>
                   <th>Details</th>
+                  <th>Date</th>
                 </tr>
               </thead>
               <tbody>
@@ -370,6 +371,7 @@
                     <td>{{ quote.full_name }}</td>
                     <td>{{ quote.email }}</td>
                     <td>{{ quote.phone }}</td>
+                    <td>{{ formatDate(quote.created_at) }}</td>
                     <td>
                       <button class="action-btn" v-on:click="quoteDetails(quote.id)">
                         {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
@@ -377,7 +379,7 @@
                     </td>
                   </tr>
                   <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
-                    <td colspan="5">
+                    <td colspan="6">
                       <div v-for="(value, key) in quote.payload" :key="key">
                         <p>
                           <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
@@ -477,6 +479,7 @@
                 <th>Phone</th>
                 <th>Actions</th>
                 <th>Delete</th>
+                <th>Date</th>
               </tr>
             </thead>
             <tbody>
@@ -486,6 +489,7 @@
                   <td>{{ quote.full_name }}</td>
                   <td>{{ quote.email }}</td>
                   <td>{{ quote.phone }}</td>
+                  <td>{{ formatDate(quote.created_at) }}</td>
                   <td>
                     <button class="action-btn" v-on:click="quoteDetails(quote.id)">
                       {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
@@ -497,7 +501,7 @@
                 </tr>
             
                 <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
-                  <td colspan="6">
+                  <td colspan="7">
                     <div v-for="(value, key) in quote.payload" :key="key">
                       <p>
                         <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}

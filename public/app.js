@@ -43,6 +43,8 @@ const app = createApp({
       //to retrieve quote details in teh agent dashboard
       selectedQuoteId: null,
 
+      //quote has been seen by the agent
+      seenQuotes: JSON.parse(localStorage.getItem("seenQuotes") || "[]"),
 
       // HOME form data
       homeForm: {
@@ -333,8 +335,18 @@ const app = createApp({
     },
 
 
+    markQuoteSeen(id) {
+      if(!this.seenQuotes.includes(id)){
+        this.seenQuotes.push(id);
+        localStorage.setItem("seenQuotes", JSON.stringify(this.seenQuotes));
+      }
+    },
+
+
+
     quoteDetails(id) {
       this.selectedQuoteId = this.selectedQuoteId === id ? null : id;
+      this.markQuoteSeen(id);
     },
 
     formatQuoteDetails(key) {
@@ -343,6 +355,10 @@ const app = createApp({
         .replace(/^./, str => str.toUpperCase());
     },
 
+    formatDate(dateStr) {
+      if(!dateStr) return "";
+      return new Date(dateStr).toLocaleDateString({ month: "short", day: "numeric", year: "numeric" });
+    },
 
 
       // client dashboard loading quotes
@@ -546,7 +562,14 @@ const app = createApp({
         console.error("handleAgentAuth error:", err);
         alert("Agent login/signup error.");
       }
-    }
+    },
+
+
+
+
+
+
+  
     
   },
 });
