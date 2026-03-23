@@ -203,7 +203,7 @@
          rgba(15,10,8,0.18) 0%,
          rgba(15,10,8,0.55) 50%,
          var(--bg) 100%),
-       url('https://unsplash.com/photos/landscape-photography-of-butte-mountain-bO6Sq_C7j1c')
+       url('land.jpg')
        center / cover no-repeat;
    }
    
