@@ -101,16 +101,6 @@ app.delete("/quotes/:id", async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
 //agent sign up
 app.post("/auth/agent/signup", async (req, res) => {
   try {
@@ -293,19 +283,6 @@ app.post("/auth/client/login", async (req, res) => {
     res.status(500).json({ error: "Database error", detail: err.message });
   }
 });
-
-
-
-
-
-//Agent dashboard
-
-
-
-
-//Client ddashboard
-
-
 
 
 

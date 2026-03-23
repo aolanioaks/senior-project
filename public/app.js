@@ -157,7 +157,7 @@ const app = createApp({
       if (page === "clientDashboard") {
         await this.loadClientQuotes();
       } 
-      if (page === "agetnDashboard") {
+      if (page === "agentDashboard") {
         await this.loadQuotes();
       }
     },
@@ -340,7 +340,7 @@ const app = createApp({
     formatQuoteDetails(key) {
       return key
         .replace(/([A-Z])/g, " $1") 
-        .replace(/^./, str => str.toUpperCase());df
+        .replace(/^./, str => str.toUpperCase());
     },
 
 
