@@ -527,7 +527,7 @@
      width: min(1000px, 95vw);
      height: 480px;
      margin: 3rem auto 0;
-     border-radius: var(--radius-lg);
+     border-radius: 6px;
      background: var(--bg-3);
      border: 1px solid var(--border);
      overflow: hidden;
