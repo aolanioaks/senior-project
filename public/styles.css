@@ -335,7 +335,7 @@
      padding: 2.75rem 3rem;
      background: var(--bg-2);
      border: 1px solid var(--border);
-     border-radius: var(--radius-lg);
+     border-radius: 6px;
    }
    
    .panel-header { 
