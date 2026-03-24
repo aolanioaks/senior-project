@@ -488,7 +488,7 @@
    .categories-page {
      background: var(--bg);
      min-height: 100vh;
-     padding: calc(var(--nav-height) + 3rem) 2rem 4rem;
+     padding: 90px 2rem 4rem ;
    }
    
    .categories-container { 
