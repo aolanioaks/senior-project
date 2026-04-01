@@ -6,7 +6,7 @@
   <title>Riverside Business Insurance Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -66,15 +66,6 @@
               </div>
             </div>
           </div>
-        </div>
-      </div>
-        <div class="feature-item">
-          <h3>Expert Agents</h3>
-          <p>Dedicated professionals committed to your peace of mind</p>
-        </div>
-        <div class="feature-item">
-          <h3>Fast Quotes</h3>
-          <p>Quick, accurate quotes with no obligation required</p>
         </div>
       </div>
     </div>
@@ -206,7 +197,7 @@
             <div class="contact-card">
               <div class="contact-info">
                 <h3>Email</h3>
-                <p><a href="/cdn-cgi/l/email-protection#c0a9aeb3b5b2a1aea3a5f1f5f780a7ada1a9aceea3afad"><span class="__cf_email__" data-cfemail="a2cbccd1d7d0c3ccc1c7939795e2c5cfc3cbce8cc1cdcf">[email&#160;protected]</span></a></p>
+                <p><a href="/cdn-cgi/l/email-protection#1970776a6c6b78777a7c282c2e597e74787075377a7674"><span class="__cf_email__" data-cfemail="d5bcbba6a0a7b4bbb6b0e4e0e295b2b8b4bcb9fbb6bab8">[email&#160;protected]</span></a></p>
               </div>
             </div>
 
@@ -856,7 +847,10 @@
               </div>
               <div class="form-group">
                 <label>Business Address</label>
-                <input type="text" v-model="inlandForm.businesspe</label>
+                <input type="text" v-model="inlandForm.businessAddress" required placeholder="123 Main St" />
+              </div>
+              <div class="form-group">
+                <label>Business Type</label>
                 <input type="text" v-model="inlandForm.businessType" required placeholder="construction" />
               </div>
               <div class="form-group">
@@ -1023,6 +1017,7 @@
           <p>&copy; 2026 Riverside Business Insurance Agency, Inc. All rights reserved.</p>
         </div>
       </div>
+
     </footer>
   </div>
 
