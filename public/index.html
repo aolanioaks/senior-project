@@ -39,6 +39,7 @@
 
       <div class="landing-hero">
 
+        <!-- LEFT: text -->
         <div class="hero-text">
           <p class="hero-eyebrow"><span class="eyebrow-line"></span> Est. 2010</p>
           <h1 class="hero-headline">
@@ -56,20 +57,21 @@
           </button>
         </div>
 
+        <!-- RIGHT: image with stats -->
         <div class="hero-image">
           <div class="hero-mockup">
             <img src="land.jpg" alt="Riverside Insurance" />
             <div class="mockup-overlay">
-              <div class="agency-stats">
-                <div class="agency-stat">
+              <div class="mockup-stats">
+                <div class="mockup-stat">
                   <span class="mstat-number">20+</span>
                   <span class="mstat-label">Years Experience</span>
                 </div>
-                <div class="agency-stat">
+                <div class="mockup-stat">
                   <span class="mstat-number">10K+</span>
                   <span class="mstat-label">Clients Protected</span>
                 </div>
-                <div class="agency-stat">
+                <div class="mockup-stat">
                   <span class="mstat-number">20+</span>
                   <span class="mstat-label">Carrier Partners</span>
                 </div>
@@ -93,27 +95,27 @@
         <div class="agents-row">
           <div class="agents-card">
             <p class="agent-name">Blake O. </p>
-            <img src="blakeimage.jpeg" class="agent-photo"/>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
 
           <div class="agents-card">
             <p class="agent-name">Darwin L. </p>
-            <img src="darwin.png" class="agent-photo"/>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
 
           <div class="agents-card">
             <p class="agent-name">Jonarae B. </p>
-            <img src="blank.jpg" class="agent-photo"/>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
 
           <div class="agents-card">
             <p class="agent-name">Max L. </p>
-            <img src="blank.jpg" class="agent-photo"/>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
 
           <div class="agents-card">
             <p class="agent-name">Naleea A. </p>
-            <img src="blank.jpg" class="agent-photo"/>
+            <img src="image.jpeg" class="agent-photo"/>
           </div>
         </div>
       </div>
@@ -325,80 +327,94 @@
     </div>
 
 
-
-
-
-
-
-
-    <!-- client dashboard -->
-    <div v-if="currentPage === 'clientDashboard'" class="page">
-      <div class="dashboard-panel">
-        <div class="dashboard-header">
-          <div>
-            <h2 class="dashboard-title">Welcome, {{ clientAuth.fullName || 'Client' }}</h2>
-            <p class="dashboard-subtitle">Your Quote Requests</p>
-          </div>
-          <button class="btn-secondary" v-on:click="logout()">
-            Logout
-          </button>
-        </div>
-        
-        <div class="dashboard-content">
-          <div class="empty-state" v-if="quoteRequests.length === 0">
-            <h3>No Quote Requests Yet</h3>
-            <p>Start by requesting a quote for your insurance needs.</p>
-          </div>
-          
-          <div classs="quotes-table-wrapper" v-if="quoteRequests.length > 0" >
-            <table class="quotes-table">
-              <thead>
-                <tr>
-                  <th>Type</th>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Phone</th>
-                  <th>Date</th>
-                  <th>Details</th>
-                </tr>
-              </thead>
-              <tbody>
-                <template v-for="quote in quoteRequests" :key="quote.id">
-                  <tr>
-                    <td><span class="quote-type">{{ quote.quote_type }}</span></td>
-                    <td>{{ quote.full_name }}</td>
-                    <td>{{ quote.email }}</td>
-                    <td>{{ quote.phone }}</td>
-                    <td>{{ formatDate(quote.created_at) }}</td>
-                    <td>
-                      <button class="action-btn" v-on:click="quoteDetails(quote.id)">
-                        {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
-                      </button>
-                    </td>
-                  </tr>
-                  <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
-                    <td colspan="6">
-                      <div v-for="(value, key) in quote.payload" :key="key">
-                        <p>
-                          <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
-                        </p>
-                      </div>
-                    </td>
-                  </tr>
-                </template>
-              </tbody>
-            </table>
-          </div>
-          <button class="btn-primary" v-on:click="goTo('categories')">
-            + Request New Quote
-          </button>
-        </div>
+<!-- client dashboard -->
+<div v-if="currentPage === 'clientDashboard'" class="page">
+  <div class="dashboard-panel">
+    <div class="dashboard-header">
+      <div>
+        <h2 class="dashboard-title">Welcome, {{ clientAuth.fullName || 'Client' }}</h2>
+        <p class="dashboard-subtitle">Your Quote Requests</p>
       </div>
+      <button class="btn-secondary" v-on:click="logout()">
+        Logout
+      </button>
     </div>
 
+    <div class="dashboard-content">
+      <div class="empty-state" v-if="quoteRequests.length === 0">
+        <h3>No Quote Requests Yet</h3>
+        <p>Start by requesting a quote for your insurance needs.</p>
+      </div>
 
+      <div class="quotes-table-wrapper" v-if="quoteRequests.length > 0">
+        <table class="quotes-table">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Phone</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Rate</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody>
+            <template v-for="quote in quoteRequests" :key="quote.id">
+              <tr>
+                <td><span class="quote-type">{{ quote.quote_type }}</span></td>
+                <td>{{ quote.full_name }}</td>
+                <td>{{ quote.email }}</td>
+                <td>{{ quote.phone }}</td>
+                <td>{{ formatDate(quote.created_at) }}</td>
+                <td><span class="little-status">{{ getQuoteStatus(quote) }}</span></td>
+                <td>{{ getLittleRate(quote) }}</td>
+                <td>
+                  <button class="action-btn" v-on:click="quoteDetails(quote.id)">
+                    {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
+                  </button>
+                </td>
+              </tr>
+              <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
+                <td colspan="8">
+                  <div v-for="(value, key) in quote.payload" :key="key" v-if="key !== 'uploadedFiles' && key !== 'agentSide' && key !== 'quoteStatus'">
+                    <p><strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}</p>
+                  </div>
 
+                  <div class="quote-back-box" v-if="getQuoteFiles(quote).length > 0">
+                    <p class="small-title">Files you uploaded</p>
+                    <div class="file-chip-row">
+                      <a
+                        v-for="(oneFile, fileIndex) in getQuoteFiles(quote)"
+                        :key="oneFile.url + fileIndex"
+                        class="file-chip"
+                        :href="apiBase + oneFile.url"
+                        target="_blank"
+                      >{{ oneFile.originalName }}</a>
+                    </div>
+                  </div>
 
+                  <div class="quote-back-box">
+                    <p class="small-title">Agent update</p>
+                    <p><strong>Status:</strong> {{ getQuoteStatus(quote) }}</p>
+                    <p><strong>Company:</strong> {{ quote.payload?.agentSide?.company || 'Still waiting' }}</p>
+                    <p><strong>Monthly Price:</strong> {{ quote.payload?.agentSide?.monthlyPrice ? '$' + quote.payload.agentSide.monthlyPrice + '/month' : 'Still waiting' }}</p>
+                    <p><strong>Deductible:</strong> {{ quote.payload?.agentSide?.deductible || 'Still waiting' }}</p>
+                    <p><strong>Agent Note:</strong> {{ quote.payload?.agentSide?.note || 'No note yet' }}</p>
+                  </div>
+                </td>
+              </tr>
+            </template>
+          </tbody>
+        </table>
+      </div>
+      <button class="btn-primary" v-on:click="goTo('categories')">
+        + Request New Quote
+      </button>
+    </div>
+  </div>
+</div>
 
 
 
@@ -454,69 +470,118 @@
       </div>
     </div>
 
-    <!-- agent dashboard -->
-    <div v-if="currentPage === 'agentDashboard'" class="page">
-      <div class="dashboard-panel wide">
-        <div class="dashboard-header">
-          <div>
-            <p class="dashboard-title">Welcome, {{ agentAuth.fullName || 'Agent' }}</h2>
-          </div>
-          <button class="btn-secondary" v-on:click="logout()">
-            Logout
-          </button>
-        </div>
-        
-        <div class="quotes-table-wrapper">
-          <table class="quotes-table" v-if="quoteRequests.length > 0">
-            <thead>
-              <tr>
-                <th>Type</th>
-                <th>Client Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-                <th>Date</th>
-                <th>Actions</th>
-                <th>Delete</th>
-              </tr>
-            </thead>
-            <tbody>
-              <template v-for="quote in quoteRequests" :key="quote.id">
-                <tr :class="{'quote-new' : !seenQuotes.includes(quote.id) }">
-                  <td><span class="quote-type">{{ quote.quote_type }}</span></td>
-                  <td>{{ quote.full_name }}</td>
-                  <td>{{ quote.email }}</td>
-                  <td>{{ quote.phone }}</td>
-                  <td>{{ formatDate(quote.created_at) }}</td>
-                  <td>
-                    <button class="action-btn" v-on:click="quoteDetails(quote.id)">
-                      {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
-                    </button>
-                  </td>
-                  <td>
-                    <button class="delete-btn" v-on:click="deleteQuote(quote.id)">Delete Quote</button>
-                  </td>
-                </tr>
-            
-                <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
-                  <td colspan="7">
-                    <div v-for="(value, key) in quote.payload" :key="key">
-                      <p>
-                        <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
-                      </p>
+
+<!-- agent dashboard -->
+<div v-if="currentPage === 'agentDashboard'" class="page">
+  <div class="dashboard-panel wide">
+    <div class="dashboard-header">
+      <div>
+        <p class="dashboard-title">Welcome, {{ agentAuth.fullName || 'Agent' }}</p>
+      </div>
+      <button class="btn-secondary" v-on:click="logout()">
+        Logout
+      </button>
+    </div>
+
+    <div class="quotes-table-wrapper">
+      <table class="quotes-table" v-if="quoteRequests.length > 0">
+        <thead>
+          <tr>
+            <th>Type</th>
+            <th>Client Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Date</th>
+            <th>Status</th>
+            <th>Actions</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <template v-for="quote in quoteRequests" :key="quote.id">
+            <tr :class="{'quote-new' : !seenQuotes.includes(quote.id) }">
+              <td><span class="quote-type">{{ quote.quote_type }}</span></td>
+              <td>{{ quote.full_name }}</td>
+              <td>{{ quote.email }}</td>
+              <td>{{ quote.phone }}</td>
+              <td>{{ formatDate(quote.created_at) }}</td>
+              <td><span class="little-status">{{ getQuoteStatus(quote) }}</span></td>
+              <td>
+                <button class="action-btn" v-on:click="quoteDetails(quote.id)">
+                  {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
+                </button>
+              </td>
+              <td>
+                <button class="delete-btn" v-on:click="deleteQuote(quote.id)">Delete Quote</button>
+              </td>
+            </tr>
+
+            <tr v-if="selectedQuoteId === quote.id" class="quote-details-row">
+              <td colspan="8">
+                <div v-for="(value, key) in quote.payload" :key="key" v-if="key !== 'uploadedFiles' && key !== 'agentSide' && key !== 'quoteStatus'">
+                  <p><strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}</p>
+                </div>
+
+                <div class="quote-back-box" v-if="getQuoteFiles(quote).length > 0">
+                  <p class="small-title">Client files</p>
+                  <div class="file-chip-row">
+                    <a
+                      v-for="(oneFile, fileIndex) in getQuoteFiles(quote)"
+                      :key="oneFile.url + fileIndex"
+                      class="file-chip"
+                      :href="apiBase + oneFile.url"
+                      target="_blank"
+                    >{{ oneFile.originalName }}</a>
+                  </div>
+                </div>
+
+                <div class="save-rate-box">
+                  <p class="small-title">Agent rate section</p>
+                  <div class="little-grid">
+                    <div class="form-group">
+                      <label>Status</label>
+                      <select v-model="getAgentSide(quote).status">
+                        <option value="Pending">Pending</option>
+                        <option value="Reviewing">Reviewing</option>
+                        <option value="Waiting for Documents">Waiting for Documents</option>
+                        <option value="Quoted">Quoted</option>
+                        <option value="Bound">Bound</option>
+                        <option value="Declined">Declined</option>
+                      </select>
                     </div>
-                  </td>
-                </tr>
-              </template>
-            </tbody>
-          </table>
-          
-          <div class="empty-state" v-else>
-            <h3>No Quote Requests</h3>
-            <p>Quote requests from clients will appear here.</p>
-          </div>
-        </div>
+                    <div class="form-group">
+                      <label>Company</label>
+                      <input type="text" v-model="getAgentSide(quote).company" placeholder="Travelers" />
+                    </div>
+                    <div class="form-group">
+                      <label>Monthly Price</label>
+                      <input type="text" v-model="getAgentSide(quote).monthlyPrice" placeholder="185" />
+                    </div>
+                    <div class="form-group">
+                      <label>Deductible</label>
+                      <input type="text" v-model="getAgentSide(quote).deductible" placeholder="$1,000" />
+                    </div>
+                    <div class="form-group full-width">
+                      <label>Agent Note</label>
+                      <textarea v-model="getAgentSide(quote).note" rows="4" placeholder="Put a quick note for the client here"></textarea>
+                    </div>
+                  </div>
+                  <button class="btn-primary" v-on:click="saveAgentUpdate(quote)">Save Quote Update</button>
+                </div>
+              </td>
+            </tr>
+          </template>
+        </tbody>
+      </table>
+
+      <div class="empty-state" v-else>
+        <h3>No Quote Requests</h3>
+        <p>Quote requests from clients will appear here.</p>
       </div>
     </div>
+  </div>
+</div>
+
 
 
     <!-- insurance forms -->
@@ -590,6 +655,23 @@
             </div>
           </div>
 
+
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('homeForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="homeForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in homeForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('homeForm', fileIndex)">x</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <button type="submit" class="btn-primary btn-submit">
             Submit Quote Request →
           </button>
@@ -650,6 +732,23 @@
               <div class="form-group">
                 <label>VIN Number</label>
                 <input type="text" v-model="autoForm.vin" placeholder="1HGBH41JXMN109186" />
+              </div>
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('autoForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="autoForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in autoForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('autoForm', fileIndex)">x</button>
+                </div>
               </div>
             </div>
           </div>
@@ -728,6 +827,23 @@
               
             </div>
           </div>
+
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('generalForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="generalForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in generalForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('generalForm', fileIndex)">x</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
@@ -799,6 +915,23 @@
                 <input type="text" v-model="workersCompForm.payroll" required placeholder="123" />
               </div>
               
+            </div>
+          </div>
+
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('workersCompForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="workersCompForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in workersCompForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('workersCompForm', fileIndex)">x</button>
+                </div>
+              </div>
             </div>
           </div>
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
@@ -894,6 +1027,23 @@
               <input type="text" v-model="inlandForm.estimatedCompletionDate" required placeholder="End of May, 2026"/>
             </div>
           </div>
+
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('inlandForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="inlandForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in inlandForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('inlandForm', fileIndex)">x</button>
+                </div>
+              </div>
+            </div>
+          </div>
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
@@ -965,7 +1115,24 @@
                 
               </div>
             </div>
-            <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+  
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('lifeForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="lifeForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in lifeForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('lifeForm', fileIndex)">x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
           </form>
         </div>
       </div>
@@ -1007,7 +1174,24 @@
               </div>
             </div>
 
-            <button type="submit" class="btn-primary btn-submit">
+  
+          <div class="form-section">
+            <h3>Files</h3>
+            <div class="upload-box">
+              <label class="student-upload-btn">
+                <span>Add Files</span>
+                <input type="file" multiple accept=".pdf,.png,.jpg,.jpeg,.doc,.docx" @change="pickQuoteFiles('otherForm', $event)" />
+              </label>
+              <p class="upload-little-text">Upload policy docs, photos, licenses, or anything your agent should see.</p>
+              <div class="file-chip-row" v-if="otherForm.uploadedFiles.length > 0">
+                <div class="file-chip" v-for="(oneFile, fileIndex) in otherForm.uploadedFiles" :key="oneFile.name + fileIndex">
+                  <span>{{ oneFile.name }}</span>
+                  <button type="button" class="file-x-btn" @click="removePickedFile('otherForm', fileIndex)">x</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn-primary btn-submit">
               Submit Inquiry →
             </button>
 
