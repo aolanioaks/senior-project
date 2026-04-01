@@ -379,7 +379,7 @@ footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 
 }
 @media (max-width: 768px) {
   .landing-hero { padding: calc(var(--nav-height) + 32px) 1.5rem 40px; gap: 2rem; }
-  .hero-headline { font-size: 2.5rem; }
+  .hero-headline { font-size: 3.5rem; }
   .hero-subtext { font-size: 1rem; }
   .hero-mockup img { height: 260px; }
   .mockup-stats { gap: 1.75rem; }
