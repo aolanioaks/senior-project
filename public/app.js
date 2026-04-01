@@ -233,12 +233,12 @@ const app = createApp({
         this.clientAuth.password = "";
     
         alert(this.isClientSignup ? "Client account created!" : "Client logged in!");
-        this.isClientSignup = false; 
+        this.isClientSignup = false;  // reset so next visit shows login, not signup
 
         if (this.pendingFormPage) {
           const next = this.pendingFormPage;
           this.pendingFormPage = null;
-          this.prefillForms();   
+          this.prefillForms();   // auto-fill now that clientAuth is populated
           this.goTo(next);
         } else {
           this.goTo("clientDashboard");
