@@ -191,8 +191,8 @@ body {
   background: linear-gradient(to top, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.6) 50%, transparent 100%);
   padding: 2.5rem 2rem 1.75rem;
 }
-.mockup-stats { display: flex; gap: 2.5rem; align-items: flex-end; }
-.mockup-stat { display: flex; flex-direction: column; gap: 0.15rem; }
+.agency-stats { display: flex; gap: 2.5rem; align-items: flex-end; }
+.agency-stat { display: flex; flex-direction: column; gap: 0.15rem; }
 .mstat-number {
   font-family: var(--font-display);
   font-size: 1.875rem; font-weight: 600;
