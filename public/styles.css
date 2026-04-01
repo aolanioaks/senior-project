@@ -89,36 +89,55 @@ body {
 /* ── LANDING ──────────────────────────────────────── */
 .landing-page { padding-top: 0; }
 
-/* Text block — Webflow-style: left-aligned, top of page */
+/* Two-column hero grid — text left, image right */
 .landing-hero {
-  padding: calc(var(--nav-height) + 72px) 4rem 56px;
-  max-width: 1280px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  min-height: 100vh;
+  padding: calc(var(--nav-height) + 48px) 4rem 64px;
 }
 
-/* Plain eyebrow — exactly like "Webflow vs WordPress" label */
+/* LEFT column */
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Eyebrow with a short horizontal rule — matches the screenshot */
 .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   font-family: var(--font-body);
   font-size: 0.9375rem;
   font-weight: 400;
   color: var(--text-muted);
-  margin-bottom: 1.25rem;
-  display: block;
+  margin-bottom: 1.5rem;
+}
+.eyebrow-line {
+  display: inline-block;
+  width: 2.5rem;
+  height: 1.5px;
+  background: var(--text-muted);
+  flex-shrink: 0;
 }
 
-/* Poppins 600, massive, tight — Webflow h1 spec */
+/* Poppins 600, tight — Webflow h1 spec */
 .hero-headline {
   font-family: var(--font-display);
-  font-size: clamp(2.75rem, 6.5vw, 5rem);
+  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
   font-weight: 600;
   line-height: 1.04;
   letter-spacing: 0.01em;
   color: var(--text);
   margin-bottom: 1.5rem;
-  max-width: 680px;
 }
 .hero-headline .highlight { color: var(--blue-hover); }
 
-/* Paragraph under the headline — Webflow L size */
+/* Paragraph — Webflow L size */
 .hero-subtext {
   display: block;
   font-family: var(--font-body);
@@ -127,10 +146,10 @@ body {
   color: var(--text-muted);
   line-height: 1.6;
   margin-bottom: 2.25rem;
-  max-width: 480px;
+  max-width: 420px;
 }
 
-/* CTA — Webflow "Contact sales" blue button */
+/* CTA — Webflow "Contact sales" */
 .cta-primary {
   display: inline-flex;
   align-items: center;
@@ -147,36 +166,39 @@ body {
 }
 .cta-primary:hover { background: var(--blue-hover); box-shadow: 0 6px 24px rgba(20,110,245,0.38); }
 
-/* Big image card — Webflow's large rounded product screenshot */
-.hero-mockup-wrap { padding: 0 3rem 5rem; }
+/* RIGHT column */
+.hero-image { width: 100%; }
+
 .hero-mockup {
   position: relative;
   border-radius: 16px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.1);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 40px 100px rgba(0,0,0,0.6);
-  background: var(--bg-2);
+  box-shadow: 0 0 0 1px rgba(255,255,255,0.04), 0 32px 80px rgba(0,0,0,0.55);
 }
 .hero-mockup img {
-  width: 100%; display: block;
-  height: 520px; object-fit: cover; object-position: center 30%;
+  width: 100%;
+  display: block;
+  height: 520px;
+  object-fit: cover;
+  object-position: center 40%;
 }
 
-/* Stats bar at the bottom of the image — like Webflow's metrics row */
+/* Stats gradient overlay at the bottom of the image */
 .mockup-overlay {
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  background: linear-gradient(to top, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.65) 55%, transparent 100%);
-  padding: 2.5rem 3rem 2rem;
+  background: linear-gradient(to top, rgba(10,10,15,0.95) 0%, rgba(10,10,15,0.6) 50%, transparent 100%);
+  padding: 2.5rem 2rem 1.75rem;
 }
-.mockup-stats { display: flex; gap: 3.5rem; align-items: flex-end; }
+.mockup-stats { display: flex; gap: 2.5rem; align-items: flex-end; }
 .mockup-stat { display: flex; flex-direction: column; gap: 0.15rem; }
 .mstat-number {
   font-family: var(--font-display);
-  font-size: 2rem; font-weight: 600;
+  font-size: 1.875rem; font-weight: 600;
   color: var(--text); line-height: 1; letter-spacing: 0.01em;
 }
-.mstat-label { font-family: var(--font-body); font-size: 0.875rem; color: var(--text-muted); }
+.mstat-label { font-family: var(--font-body); font-size: 0.8125rem; color: var(--text-muted); }
 
 /* ── BUTTONS ──────────────────────────────────────── */
 .back-btn {
@@ -348,21 +370,19 @@ footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 
 @keyframes fadeIn    { from { opacity: 0; } to { opacity: 1; } }
 
 /* ── RESPONSIVE ───────────────────────────────────── */
-@media (max-width: 1024px) {
-  .landing-hero { padding: calc(var(--nav-height) + 56px) 2.5rem 40px; }
-  .hero-mockup-wrap { padding: 0 2rem 4rem; }
-  .hero-mockup img { height: 400px; }
+@media (max-width: 1100px) {
+  .landing-hero { grid-template-columns: 1fr; gap: 2.5rem; padding: calc(var(--nav-height) + 48px) 2.5rem 48px; min-height: auto; }
+  .hero-mockup img { height: 380px; }
   .top-nav { padding: 0 2rem; }
   .form-grid { grid-template-columns: 1fr; }
   .dashboard-panel { padding: 2rem; }
 }
 @media (max-width: 768px) {
-  .landing-hero { padding: calc(var(--nav-height) + 40px) 1.5rem 32px; }
+  .landing-hero { padding: calc(var(--nav-height) + 32px) 1.5rem 40px; gap: 2rem; }
   .hero-headline { font-size: 2.5rem; }
   .hero-subtext { font-size: 1rem; }
-  .hero-mockup-wrap { padding: 0 1rem 3rem; }
-  .hero-mockup img { height: 240px; }
-  .mockup-stats { gap: 2rem; }
+  .hero-mockup img { height: 260px; }
+  .mockup-stats { gap: 1.75rem; }
   .mstat-number { font-size: 1.5rem; }
   .category-title { font-size: 2.5rem; }
   .nav-links { gap: 1rem; }

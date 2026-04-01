@@ -38,41 +38,48 @@
     <div v-if="currentPage === 'landing'" class="page landing-page">
 
       <div class="landing-hero">
-        <p class="hero-eyebrow">Riverside Business Insurance &mdash; Est. 2010</p>
-        <h1 class="hero-headline">
-          Your trusted partner<br>
-          for <span class="highlight">comprehensive</span><br>
-          insurance solutions
-        </h1>
-        <p class="hero-subtext">
-          Protecting what matters most &mdash; personalized coverage,<br>
-          expert agents, and fast quotes with no obligation.
-        </p>
-        <button class="cta-primary" v-on:click="goTo('categories')">
-          Get Started
-        </button>
-      </div>
 
-      <div class="hero-mockup-wrap">
-        <div class="hero-mockup">
-          <img src="land.jpg" alt="Riverside Insurance" />
-          <div class="mockup-overlay">
-            <div class="mockup-stats">
-              <div class="mockup-stat">
-                <span class="mstat-number">20+</span>
-                <span class="mstat-label">Years Experience</span>
-              </div>
-              <div class="mockup-stat">
-                <span class="mstat-number">10K+</span>
-                <span class="mstat-label">Clients Protected</span>
-              </div>
-              <div class="mockup-stat">
-                <span class="mstat-number">20+</span>
-                <span class="mstat-label">Carrier Partners</span>
+        <!-- LEFT: text -->
+        <div class="hero-text">
+          <p class="hero-eyebrow"><span class="eyebrow-line"></span> Est. 2010</p>
+          <h1 class="hero-headline">
+            Your trusted<br>
+            partner for<br>
+            <span class="highlight">comprehensive</span><br>
+            insurance solutions
+          </h1>
+          <p class="hero-subtext">
+            Protecting what matters most &mdash; personalized coverage,
+            expert agents, and fast quotes with no obligation.
+          </p>
+          <button class="cta-primary" v-on:click="goTo('categories')">
+            Get Started
+          </button>
+        </div>
+
+        <!-- RIGHT: image with stats -->
+        <div class="hero-image">
+          <div class="hero-mockup">
+            <img src="land.jpg" alt="Riverside Insurance" />
+            <div class="mockup-overlay">
+              <div class="mockup-stats">
+                <div class="mockup-stat">
+                  <span class="mstat-number">20+</span>
+                  <span class="mstat-label">Years Experience</span>
+                </div>
+                <div class="mockup-stat">
+                  <span class="mstat-number">10K+</span>
+                  <span class="mstat-label">Clients Protected</span>
+                </div>
+                <div class="mockup-stat">
+                  <span class="mstat-number">20+</span>
+                  <span class="mstat-label">Carrier Partners</span>
+                </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
 
     </div>
