@@ -6,7 +6,7 @@
   <title>Riverside Business Insurance Agency</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -33,57 +33,105 @@
         </button>
       </nav>
     </header>
-
     <!-- landing Page -->
     <div v-if="currentPage === 'landing'" class="page landing-page">
       <div class="landing-hero">
-        <div class="hero-content">
-          <div class="hero-tag">Est. 2010</div>
-          <h1 class="hero-headline">
-            Your Trusted Partner for
-            <span class="highlight">Comprehensive Insurance</span>
-            Solutions
-          </h1>
-          <p class="hero-subtext">Protecting what matters most — personalized coverage, expert agents, and fast quotes with no obligation.</p>
-          <button class="cta-primary" v-on:click="goTo('categories')">
-            <span>Get Started → </span>
-          </button>
-        </div>
-        <div class="hero-visual">
-          <div class="visual-frame">
-            <div class="frame-content">
-              <div class="stat-card">
-                <span class="stat-number">20+</span>
-                <span class="stat-label">Years Experience</span>
+        <div class="hero-shell">
+          <div class="hero-eyebrow">Riverside Business Insurance</div>
+
+          <div class="hero-grid">
+            <div class="hero-copy">
+              <h1 class="hero-headline">
+                Modern insurance quotes for
+                <span class="highlight">businesses, homes, vehicles,</span>
+                and everything in between.
+              </h1>
+
+              <p class="hero-subtext">
+                Fast quote requests, real agents, and carrier access all in one place so you can get coverage without the runaround.
+              </p>
+
+              <div class="hero-actions">
+                <button class="cta-primary" v-on:click="goTo('categories')">
+                  <span>Get Started</span>
+                </button>
+
+                <button class="cta-secondary" v-on:click="goTo('contact')">
+                  <span>Contact</span>
+                </button>
               </div>
-              <div class="stat-card">
-                <span class="stat-number">10K+</span>
-                <span class="stat-label">Clients Protected</span>
-              </div>
-              <div class="stat-card">
-                <span class="stat-number">20+</span>
-                <span class="stat-label">Carrier Partners</span>
+            </div>
+
+            <div class="hero-preview-wrap">
+              <div class="hero-preview-frame">
+                <div class="hero-preview-topbar">
+                  <div class="preview-dots">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                  <div class="preview-label">Quote Request Preview</div>
+                </div>
+
+                <div class="hero-preview-body">
+                  <div class="preview-main-card">
+                    <div class="preview-badge">Featured coverage</div>
+                    <h3>Business Insurance</h3>
+                    <p>
+                      General Liability, Workers Comp, Inland Marine and more with a quick request flow.
+                    </p>
+
+                    <div class="preview-stats">
+                      <div class="preview-stat">
+                        <strong>20+</strong>
+                        <span>Carrier Partners</span>
+                      </div>
+                      <div class="preview-stat">
+                        <strong>10K+</strong>
+                        <span>Clients Protected</span>
+                      </div>
+                      <div class="preview-stat">
+                        <strong>Fast</strong>
+                        <span>Quote Requests</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="preview-side-card preview-side-card-top">
+                    <div class="mini-card-label">Popular requests</div>
+                    <ul>
+                      <li>Home Insurance</li>
+                      <li>Auto Insurance</li>
+                      <li>Workers Comp</li>
+                    </ul>
+                  </div>
+
+                  <div class="preview-side-card preview-side-card-bottom">
+                    <div class="mini-card-label">Why Riverside</div>
+                    <p>Real people, real follow up, and a quote dashboard that keeps everything in one spot.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <div class="landing-features">
         <div class="feature-item">
           <h3>Complete Protection</h3>
-          <p>Comprehensive coverage options tailored to your unique needs</p>
+          <p>Comprehensive coverage options tailored to your unique needs.</p>
         </div>
         <div class="feature-item">
           <h3>Expert Agents</h3>
-          <p>Dedicated professionals committed to your peace of mind</p>
+          <p>Dedicated professionals committed to helping you find the right policy.</p>
         </div>
         <div class="feature-item">
           <h3>Fast Quotes</h3>
-          <p>Quick, accurate quotes with no obligation required</p>
+          <p>Quick quote requests with a clean client and agent dashboard experience.</p>
         </div>
       </div>
     </div>
-
 
 
 
@@ -211,7 +259,7 @@
             <div class="contact-card">
               <div class="contact-info">
                 <h3>Email</h3>
-                <p><a href="/cdn-cgi/l/email-protection#c4adaab7b1b6a5aaa7a1f5f1f384a3a9a5ada8eaa7aba9"><span class="__cf_email__" data-cfemail="6b0205181e190a05080e5a5e5c2b0c060a020745080406">[email&#160;protected]</span></a></p>
+                <p><a href="mailto:insurance157@gmail.com">insurance157@gmail.com</a></p>
               </div>
             </div>
 
@@ -1031,3 +1079,10 @@
           <p>&copy; 2026 Riverside Business Insurance Agency, Inc. All rights reserved.</p>
         </div>
       </div>
+    </footer>
+  </div>
+
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
