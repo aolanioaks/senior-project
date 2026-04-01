@@ -217,7 +217,8 @@ const app = createApp({
         this.clientAuth.password = "";
     
         alert(this.isClientSignup ? "Client account created!" : "Client logged in!");
-    
+        this.isClientSignup = false;  // reset so next visit shows login, not signup
+
         if (this.pendingFormPage) {
           const next = this.pendingFormPage;
           this.pendingFormPage = null;
@@ -250,6 +251,8 @@ const app = createApp({
     logout() {
       this.isClientLoggedIn = false;
       this.isAgentLoggedIn = false;
+      this.isClientSignup = false;
+      this.isAgentSignup = false;
       localStorage.removeItem("client_token");
       localStorage.removeItem("agent_token");
       localStorage.removeItem("client_email");
@@ -557,6 +560,7 @@ const app = createApp({
         this.agentAuth.licenseNumber = data.agent.license_number || "";
     
         alert(this.isAgentSignup ? "Agent account created!" : "Agent logged in!");
+        this.isAgentSignup = false;  
         this.goTo("agentDashboard");
       } catch (err) {
         console.error("handleAgentAuth error:", err);
@@ -575,5 +579,3 @@ const app = createApp({
 });
 
 app.mount("#app");
-
-

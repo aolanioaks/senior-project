@@ -36,38 +36,45 @@
 
     <!-- landing Page -->
     <div v-if="currentPage === 'landing'" class="page landing-page">
+
       <div class="landing-hero">
-        <div class="hero-content">
-          <div class="hero-tag">Est. 2010</div>
-          <h1 class="hero-headline">
-            Your Trusted Partner for
-            <span class="highlight">Comprehensive Insurance</span>
-            Solutions
-          </h1>
-          <p class="hero-subtext">Protecting what matters most — personalized coverage, expert agents, and fast quotes with no obligation.</p>
-          <button class="cta-primary" v-on:click="goTo('categories')">
-            <span>Get Started → </span>
-          </button>
-        </div>
-        <div class="hero-visual">
-          <div class="visual-frame">
-            <div class="frame-content">
-              <div class="stat-card">
-                <span class="stat-number">20+</span>
-                <span class="stat-label">Years Experience</span>
+        <p class="hero-eyebrow">Riverside Business Insurance &mdash; Est. 2010</p>
+        <h1 class="hero-headline">
+          Your trusted partner<br>
+          for <span class="highlight">comprehensive</span><br>
+          insurance solutions
+        </h1>
+        <p class="hero-subtext">
+          Protecting what matters most &mdash; personalized coverage,<br>
+          expert agents, and fast quotes with no obligation.
+        </p>
+        <button class="cta-primary" v-on:click="goTo('categories')">
+          Get Started
+        </button>
+      </div>
+
+      <div class="hero-mockup-wrap">
+        <div class="hero-mockup">
+          <img src="land.jpg" alt="Riverside Insurance" />
+          <div class="mockup-overlay">
+            <div class="mockup-stats">
+              <div class="mockup-stat">
+                <span class="mstat-number">20+</span>
+                <span class="mstat-label">Years Experience</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-number">10K+</span>
-                <span class="stat-label">Clients Protected</span>
+              <div class="mockup-stat">
+                <span class="mstat-number">10K+</span>
+                <span class="mstat-label">Clients Protected</span>
               </div>
-              <div class="stat-card">
-                <span class="stat-number">20+</span>
-                <span class="stat-label">Carrier Partners</span>
+              <div class="mockup-stat">
+                <span class="mstat-number">20+</span>
+                <span class="mstat-label">Carrier Partners</span>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
 
 
@@ -1017,7 +1024,6 @@
           <p>&copy; 2026 Riverside Business Insurance Agency, Inc. All rights reserved.</p>
         </div>
       </div>
-
     </footer>
   </div>
 
