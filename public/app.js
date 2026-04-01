@@ -164,12 +164,27 @@ const app = createApp({
       }
     },
 
-   // if the client isnt llogged in they wont be able to request any quotes
+    prefillForms() {
+      if (!this.isClientLoggedIn) return;
+      const { fullName, email, phone } = this.clientAuth;
+      const forms = [
+        'homeForm', 'autoForm', 'generalForm',
+        'workersCompForm', 'inlandForm', 'lifeForm', 'otherForm'
+      ];
+      forms.forEach(form => {
+        if (this[form].fullName  !== undefined) this[form].fullName  = fullName || '';
+        if (this[form].email     !== undefined) this[form].email     = email    || '';
+        if (this[form].phone     !== undefined) this[form].phone     = phone    || '';
+      });
+    },
+
+    // if the client isn't logged in they won't be able to request any quotes
     requestQuote(formPage) {
       if (!this.isClientLoggedIn) {
         this.pendingFormPage = formPage;
         this.goTo("clientLogin");
       } else {
+        this.prefillForms();  
         this.goTo(formPage);
       }
     },
@@ -217,17 +232,18 @@ const app = createApp({
         this.clientAuth.password = "";
     
         alert(this.isClientSignup ? "Client account created!" : "Client logged in!");
-        this.isClientSignup = false;  // reset so next visit shows login, not signup
+        this.isClientSignup = false; 
 
         if (this.pendingFormPage) {
           const next = this.pendingFormPage;
           this.pendingFormPage = null;
+          this.prefillForms();   
           this.goTo(next);
         } else {
           this.goTo("clientDashboard");
         }
       } catch (err) {
-        console.error("handleClientAuth error:", err);
+        console.error(err);
         alert("Client login/signup error.");
       }
     },    
@@ -253,11 +269,23 @@ const app = createApp({
       this.isAgentLoggedIn = false;
       this.isClientSignup = false;
       this.isAgentSignup = false;
+
       localStorage.removeItem("client_token");
       localStorage.removeItem("agent_token");
       localStorage.removeItem("client_email");
-      this.clientAuth = { fullName: "", email: "", password: "", phone: "" };
-      this.agentAuth = { fullName: "", email: "", password: "", licenseNumber: "" };
+
+      this.clientAuth = { 
+        fullName: "", 
+        email: "", 
+        password: "", 
+        phone: "" 
+      };
+      this.agentAuth = { 
+        fullName: "", 
+        email: "", 
+        password: "", 
+        licenseNumber: "" 
+      };
       this.goTo("landing");
       alert("Logged out successfully!");
     },
