@@ -26,6 +26,11 @@ if (!fs.existsSync(uploadsFolder)) {
 
 app.use("/uploads", express.static(uploadsFolder));
 
+
+
+
+
+
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, uploadsFolder);
@@ -62,6 +67,8 @@ app.get("/quotes", async (req, res) => {
     res.status(500).json({ error: "Database error", detail: err.message });
   }
 });
+
+
 
 // POST a new quote
 app.post("/quotes", async (req, res) => {
