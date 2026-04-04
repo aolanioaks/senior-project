@@ -352,7 +352,24 @@ body {
 .form-block { display: flex; flex-direction: column; gap: 1.25rem; }
 .form-block h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: 0.02em; color: var(--text); padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); text-transform: uppercase; }
 .form-layout { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
-.input-group { display: flex; flex-direction: column; gap: 0.4rem; }
+.input-group input[type="file"] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  background: var(--bg-3);
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+}
+.input-group input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 0.45rem 0.8rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+}
 .input-group.wide-input { grid-column: 1 / -1; }
 .input-group label { font-size: 0.8125rem; font-weight: 500; color: var(--text-muted); }
 .input-group input, .input-group select { padding: 0.75rem 1rem; background: var(--bg-3); border: 1px solid var(--border-md); border-radius: var(--radius-sm); font-family: var(--font-body); font-size: 0.9375rem; color: var(--text); transition: border-color 0.18s, box-shadow 0.18s; -webkit-appearance: none; }

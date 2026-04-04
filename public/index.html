@@ -652,6 +652,40 @@
               </div>
             </div>
           </div>
+
+          <div class="form-block">
+            <h3>Upload Documents</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Driver's License File</label>
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.pdf"
+                  v-on:change="handleFileChange($event, 'autoForm', 'driversLicenseFile')"
+                />
+              </div>
+          
+              <div class="input-group">
+                <label>VIN Photo</label>
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.pdf"
+                  v-on:change="handleFileChange($event, 'autoForm', 'vinFile')"
+                />
+              </div>
+          
+              <div class="input-group">
+                <label>Previous Policy PDF</label>
+                <input
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  v-on:change="handleFileChange($event, 'autoForm', 'previousPolicyFile')"
+                />
+              </div>
+            </div>
+          </div>
+
+          
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>

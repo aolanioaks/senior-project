@@ -70,9 +70,9 @@ const app = createApp({
         year: "",
         vin: "",
         driversLicense: "",
-        // vinFile: null,
-        // driversLicenseFile: null,
-        // previousPolicyFile: null,
+        vinFile: null,
+        driversLicenseFile: null,
+        previousPolicyFile: null,
       },
 
       // BUSINESS form data
@@ -438,21 +438,59 @@ const app = createApp({
     },
 
     async submitAutoForm() {
-      const payload = { ...this.autoForm };
-
-      const saved = await this.sendQuote(
-        "auto",
-        this.autoForm.fullName,
-        this.autoForm.email,
-        this.autoForm.phone,
-        payload
-      );
-
-      if (!saved) return;
-
-      await this.loadClientQuotes();
-      alert("Auto Insurance Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+      try {
+        const formData = new FormData();
+    
+        const payload = {
+          fullName: this.autoForm.fullName,
+          email: this.autoForm.email,
+          phone: this.autoForm.phone,
+          address: this.autoForm.address,
+          make: this.autoForm.make,
+          model: this.autoForm.model,
+          year: this.autoForm.year,
+          vin: this.autoForm.vin,
+          driversLicense: this.autoForm.driversLicense,
+        };
+    
+        formData.append("quote_type", "auto");
+        formData.append("full_name", this.autoForm.fullName);
+        formData.append("email", this.autoForm.email);
+        formData.append("phone", this.autoForm.phone);
+        formData.append("payload", JSON.stringify(payload));
+    
+        if (this.autoForm.driversLicenseFile) {
+          formData.append("driversLicenseFile", this.autoForm.driversLicenseFile);
+        }
+    
+        if (this.autoForm.vinFile) {
+          formData.append("vinFile", this.autoForm.vinFile);
+        }
+    
+        if (this.autoForm.previousPolicyFile) {
+          formData.append("previousPolicyFile", this.autoForm.previousPolicyFile);
+        }
+    
+        const response = await fetch("https://riverside-api.onrender.com/quotes/auto-upload", {
+          method: "POST",
+          body: formData,
+        });
+    
+        if (!response.ok) {
+          const text = await response.text().catch(() => "");
+          console.error("Submitting auto quote failed:", response.status, text);
+          alert("Auto quote submission failed.");
+          return;
+        }
+    
+        await response.json();
+        await this.loadClientQuotes();
+        alert("Auto Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.goTo("clientDashboard");
+      } catch (err) {
+        console.error("submitAutoForm error:", err);
+        alert("Auto quote submission error.");
+      }
     },
 
     async submitGeneralForm() {
@@ -596,8 +634,11 @@ const app = createApp({
     },
 
 
-
-
+    // allowing upload files on the quotes
+    handleFileChange(event, formName, fieldName) {
+      const file = event.target.files[0] || null;
+      this[formName][fieldName] = file;
+    },
 
 
   
