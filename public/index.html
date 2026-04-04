@@ -58,7 +58,7 @@
 
         <div class="hero-image">
           <div class="hero-mockup">
-            <img src="land.jpg" alt="Riverside Insurance" />
+            <img src="new-logo.png" alt="Riverside Insurance" />
             <div class="mockup-overlay">
               <div class="agency-stats">
                 <div class="agency-stat">
@@ -228,7 +228,7 @@
 
 
 
-<!-- categories page with new carousel -->
+<!-- categories page with carousel -->
 <div v-if="currentPage === 'categories'" class="page categories-page">
   <div class="categories-container">
     <button class="back-btn" v-on:click="goTo('landing')">
@@ -242,7 +242,7 @@
       </p>
     </div>
 
-    <!-- NEW CAROUSEL -->
+  
     <div class="carousel2-container">
       <div class="carousel2-slide" ref="carouselSlide">
         <div
@@ -273,7 +273,7 @@
 
 
     
-    <!-- client login/signup page they must in order to submit a quote  -->
+    <!-- client login/signup page that they must do in order to submit a quote  -->
     <div v-if="currentPage === 'clientLogin'" class="page">
       <div class="auth-panel">
         <button class="back-btn" v-on:click="goTo('categories')">
@@ -520,7 +520,6 @@
 
 
     <!-- insurance forms -->
-
 
     <div v-if="currentPage === 'homeForm'" class="page form-page">
       <div class="form-panel">
@@ -1014,8 +1013,6 @@
           </form>
         </div>
       </div>
-
-
 
 
 

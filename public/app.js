@@ -152,7 +152,7 @@ const app = createApp({
   },
 
   methods: {
-    // navigation
+
     async goTo(page) {
       console.log("Go to: ", page);
       this.currentPage = page;
@@ -164,7 +164,7 @@ const app = createApp({
       }
     },
 
-    // pre-fill every quote form with the logged-in client's info
+
     prefillForms() {
       if (!this.isClientLoggedIn) return;
       const { fullName, email, phone } = this.clientAuth;
@@ -185,12 +185,12 @@ const app = createApp({
         this.pendingFormPage = formPage;
         this.goTo("clientLogin");
       } else {
-        this.prefillForms();   // auto-fill name / email / phone before opening form
+        this.prefillForms();
         this.goTo(formPage);
       }
     },
 
-    // client auth
+
     async handleClientAuth() {
       try {
         const endpoint = this.isClientSignup
@@ -233,12 +233,12 @@ const app = createApp({
         this.clientAuth.password = "";
     
         alert(this.isClientSignup ? "Client account created!" : "Client logged in!");
-        this.isClientSignup = false;  // reset so next visit shows login, not signup
+        this.isClientSignup = false;  
 
         if (this.pendingFormPage) {
           const next = this.pendingFormPage;
           this.pendingFormPage = null;
-          this.prefillForms();   // auto-fill now that clientAuth is populated
+          this.prefillForms();  
           this.goTo(next);
         } else {
           this.goTo("clientDashboard");
@@ -249,7 +249,7 @@ const app = createApp({
       }
     },    
 
-    // agent auth 
+
     handleAgentAuth() {
       if (this.isAgentSignup) {
         console.log("Agent Signup:", this.agentAuth);
@@ -264,7 +264,7 @@ const app = createApp({
       this.goTo("agentDashboard");
     },
 
-    // logout
+
     logout() {
       this.isClientLoggedIn = false;
       this.isAgentLoggedIn = false;
@@ -339,7 +339,7 @@ const app = createApp({
     },
 
 
-// loading quotes for the agent dashboard
+// loading quotes for the agent to see in their dashboard
     async loadQuotes() {
       try {
         const res = await fetch("https://riverside-api.onrender.com/quotes");
@@ -393,7 +393,7 @@ const app = createApp({
     },
 
 
-      // client dashboard loading quotes
+      // cloading quotes in the client dashboard 
     async loadClientQuotes() {
       try {
         const res = await fetch("https://riverside-api.onrender.com/quotes");
@@ -418,9 +418,7 @@ const app = createApp({
 
 
 
-
-
-    // form submissions
+    // forms 
     async submitHomeForm() {
       const payload = { ...this.homeForm };
 
