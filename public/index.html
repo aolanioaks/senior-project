@@ -249,7 +249,8 @@
       </div>
     </div>
 
-    <!-- client login/signup page that they must do in order to submit a quote  -->
+
+    <!-- client login/signup page that they must do in order to submit their quote  -->
     <div v-if="currentPage === 'clientLogin'" class="page">
       <div class="login-box">
         <button class="back-btn" v-on:click="goTo('categories')">
@@ -299,6 +300,8 @@
         </div>
       </div>
     </div>
+
+
 
     <!-- client dashboard -->
     <div v-if="currentPage === 'clientDashboard'" class="page">
@@ -381,6 +384,9 @@
       </div>
     </div>
 
+
+
+
     <!-- agent login page -->
     <div v-if="currentPage === 'agentLogin'" class="page">
       <div class="login-box">
@@ -431,6 +437,8 @@
         </div>
       </div>
     </div>
+
+
 
     <!-- agent dashboard -->
     <div v-if="currentPage === 'agentDashboard'" class="page">
@@ -512,7 +520,7 @@
 
 
 
-    
+
     <!-- insurance forms -->
     <div v-if="currentPage === 'homeForm'" class="page form-main-page">
       <div class="form-box">
@@ -757,6 +765,7 @@
       </div>
     </div>
 
+
     <!-- wokerss comp form  -->
     <div v-if="currentPage === 'workersCompForm'" class="page form-main-page">
       <div class="form-box">
@@ -827,6 +836,8 @@
         </form>
       </div>
     </div>
+
+
 
     <!-- inland marine form -->
     <div v-if="currentPage === 'inlandForm'" class="page form-main-page">
@@ -921,6 +932,8 @@
       </div>
     </div>
 
+
+
     <!-- life form  -->
     <div v-if="currentPage === 'lifeForm'" class="page form-main-page">
       <div class="form-box">
@@ -989,6 +1002,8 @@
       </div>
     </div>
 
+
+
     <!-- other form -->
     <div v-if="currentPage === 'otherForm'" class="page form-main-page">
       <div class="form-box">
@@ -1030,6 +1045,7 @@
       </div>
     </div>
 
+    
     <!-- Footer -->
     <footer>
       <div class="footer-wrap">
