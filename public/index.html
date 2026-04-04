@@ -36,9 +36,7 @@
 
     <!-- landing Page -->
     <div v-if="currentPage === 'landing'" class="page home-page">
-
       <div class="hero-wrap">
-
         <div class="hero-left">
           <p class="small-tag"><span class="small-line"></span> Est. 2010</p>
           <h1 class="main-title">
@@ -77,13 +75,8 @@
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
-
-
 
     <!-- nav pages -->
     <div v-if="currentPage === 'agents'" class="page">
@@ -118,11 +111,6 @@
         </div>
       </div>
     </div>
-
-
-
-
-
 
     <div v-if="currentPage === 'carriers'" class="page">
       <div class="info-panel">
@@ -174,13 +162,9 @@
             <img src="logo11.png" alt="Donegal" class="carrier-pic" />
           </div>
         </div>
-
-
-
       </div>
     </div>
 
-    
     <div v-if="currentPage === 'contact'" class="page">
       <div class="info-panel">
         <button class="back-btn" v-on:click="goTo('landing')">
@@ -193,86 +177,78 @@
         <div class="info-content">
 
           <div class="contact-box">
-              <div class="contact-text">
-                <h3>Address</h3>
-                <p>157 E. Riverside Drive Suite 2A, St. George, UT 84790</p>
-              </div>
+            <div class="contact-text">
+              <h3>Address</h3>
+              <p>157 E. Riverside Drive Suite 2A, St. George, UT 84790</p>
+            </div>
           </div>
 
-            <div class="contact-box">
-              <div class="contact-text">
-                <h3>Phone</h3>
-                <p>(435)-628-8738</p>
-              </div>
+          <div class="contact-box">
+            <div class="contact-text">
+              <h3>Phone</h3>
+              <p>(435)-628-8738</p>
             </div>
+          </div>
 
-            <div class="contact-box">
-              <div class="contact-text">
-                <h3>Email</h3>
-                <p><a href="mailto:insurance157@gmail.com">insurance157@gmail.com</a></p>
-              </div>
+          <div class="contact-box">
+            <div class="contact-text">
+              <h3>Email</h3>
+              <p><a href="mailto:insurance157@gmail.com">insurance157@gmail.com</a></p>
             </div>
+          </div>
 
-            <div class="contact-box">
-              <div class="contact-text">
-                <h3>Fax</h3>
-                <p>(435)-628-4415</p>
-              </div>
+          <div class="contact-box">
+            <div class="contact-text">
+              <h3>Fax</h3>
+              <p>(435)-628-4415</p>
             </div>
+          </div>
 
         </div>
       </div>
     </div>
 
+    <!-- categories page with carousel -->
+    <div v-if="currentPage === 'categories'" class="page quote-page">
+      <div class="quote-wrap">
+        <button class="back-btn" v-on:click="goTo('landing')">
+          ← Back to Home
+        </button>
 
+        <div class="quote-header">
+          <h2 class="quote-title">Select Your Coverage</h2>
+          <p class="quote-desc">
+            Choose the type of insurance you need to receive a personalized quote from our expert agents.
+          </p>
+        </div>
 
+        <div class="quote-slider">
+          <div class="quote-track" ref="carouselSlide">
+            <div
+              class="quote-card"
+              v-for="card in categories"
+              :key="card.key"
+              :style="{ backgroundImage: `url(${card.imageUrl})` }"
+            >
+              <div class="quote-card-text">
+                <div class="quote-card-title">{{ card.title }}</div>
+                <div class="quote-card-desc">{{ card.sub }}</div>
 
+                <button class="quote-card-btn" v-on:click="requestQuote(card.formPage)">
+                  Request Quote →
+                </button>
+              </div>
+            </div>
+          </div>
 
-<!-- categories page with carousel -->
-<div v-if="currentPage === 'categories'" class="page quote-page">
-  <div class="quote-wrap">
-    <button class="back-btn" v-on:click="goTo('landing')">
-      ← Back to Home
-    </button>
-
-    <div class="quote-header">
-      <h2 class="quote-title">Select Your Coverage</h2>
-      <p class="quote-desc">
-        Choose the type of insurance you need to receive a personalized quote from our expert agents.
-      </p>
-    </div>
-
-  
-    <div class="quote-slider">
-      <div class="quote-track" ref="carouselSlide">
-        <div
-          class="quote-card"
-          v-for="card in categories"
-          :key="card.key"
-          :style="{ backgroundImage: `url(${card.imageUrl})` }"
-        >
-          <div class="quote-card-text">
-            <div class="quote-card-title">{{ card.title }}</div>
-            <div class="quote-card-desc">{{ card.sub }}</div>
-
-            <button class="quote-card-btn" v-on:click="requestQuote(card.formPage)">
-              Request Quote →
-            </button>
+          <div class="slider-buttons">
+            <button class="slider-prev" v-on:click="carouselPrev">◁</button>
+            <button class="slider-next" v-on:click="carouselNext">▷</button>
           </div>
         </div>
       </div>
-
-      <div class="slider-buttons">
-        <button class="slider-prev" v-on:click="carouselPrev">◁</button>
-        <button class="slider-next" v-on:click="carouselNext">▷</button>
-      </div>
     </div>
-  </div>
-</div>
 
-
-
-    
     <!-- client login/signup page that they must do in order to submit a quote  -->
     <div v-if="currentPage === 'clientLogin'" class="page">
       <div class="login-box">
@@ -324,13 +300,6 @@
       </div>
     </div>
 
-
-
-
-
-
-
-
     <!-- client dashboard -->
     <div v-if="currentPage === 'clientDashboard'" class="page">
       <div class="dash-box">
@@ -350,7 +319,7 @@
             <p>Start by requesting a quote for your insurance needs.</p>
           </div>
           
-          <div classs="quotes-wrap" v-if="quoteRequests.length > 0" >
+          <div class="quotes-wrap" v-if="quoteRequests.length > 0">
             <table class="quotes-list">
               <thead>
                 <tr>
@@ -376,32 +345,41 @@
                       </button>
                     </td>
                   </tr>
+          
                   <tr v-if="selectedQuoteId === quote.id" class="details-row">
                     <td colspan="6">
                       <div v-for="(value, key) in quote.payload" :key="key">
-                        <p>
+                        <div v-if="key === 'uploads'">
+                          <p><strong>Uploaded Files:</strong></p>
+          
+                          <div v-for="(filePath, fileKey) in value" :key="fileKey">
+                            <p v-if="filePath">
+                              <strong>{{ formatQuoteDetails(fileKey) }}:</strong>
+                              <a :href="'https://riverside-api.onrender.com' + filePath" target="_blank">
+                                View File
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+          
+                        <p v-else>
                           <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
                         </p>
                       </div>
                     </td>
                   </tr>
+          
                 </template>
               </tbody>
             </table>
           </div>
+
           <button class="btn-primary" v-on:click="goTo('categories')">
             + Request New Quote
           </button>
         </div>
       </div>
     </div>
-
-
-
-
-
-
-
 
     <!-- agent login page -->
     <div v-if="currentPage === 'agentLogin'" class="page">
@@ -458,16 +436,12 @@
     <div v-if="currentPage === 'agentDashboard'" class="page">
       <div class="dash-box wide">
         <div class="dash-header">
-          <div>
-            <p class="dash-title">Welcome, {{ agentAuth.fullName || 'Agent' }}</h2>
-          </div>
-          <button class="btn-secondary" v-on:click="logout()">
-            Logout
-          </button>
+          <h2>Welcome, {{ agentAuth.fullName }}</h2>
+          <button class="btn-secondary" v-on:click="logout()">Logout</button>
         </div>
-        
-        <div class="quotes-wrap">
-          <table class="quotes-list" v-if="quoteRequests.length > 0">
+
+        <div class="quotes-wrap" v-if="quoteRequests.length > 0">
+          <table class="quotes-list">
             <thead>
               <tr>
                 <th>Type</th>
@@ -479,28 +453,46 @@
                 <th>Delete</th>
               </tr>
             </thead>
+
             <tbody>
               <template v-for="quote in quoteRequests" :key="quote.id">
-                <tr :class="{'new-quote' : !seenQuotes.includes(quote.id) }">
+                <tr>
                   <td><span class="type-pill">{{ quote.quote_type }}</span></td>
                   <td>{{ quote.full_name }}</td>
                   <td>{{ quote.email }}</td>
                   <td>{{ quote.phone }}</td>
                   <td>{{ formatDate(quote.created_at) }}</td>
+
                   <td>
                     <button class="action-btn" v-on:click="quoteDetails(quote.id)">
                       {{ selectedQuoteId === quote.id ? "Hide Details" : "View Details" }}
                     </button>
                   </td>
+
                   <td>
-                    <button class="delete-btn" v-on:click="deleteQuote(quote.id)">Delete Quote</button>
+                    <button class="delete-btn" v-on:click="deleteQuote(quote.id)">
+                      Delete Quote
+                    </button>
                   </td>
                 </tr>
-            
+
                 <tr v-if="selectedQuoteId === quote.id" class="details-row">
                   <td colspan="7">
                     <div v-for="(value, key) in quote.payload" :key="key">
-                      <p>
+                      <div v-if="key === 'uploads'">
+                        <p><strong>Uploaded Files:</strong></p>
+
+                        <div v-for="(filePath, fileKey) in value" :key="fileKey">
+                          <p v-if="filePath">
+                            <strong>{{ formatQuoteDetails(fileKey) }}:</strong>
+                            <a :href="'https://riverside-api.onrender.com' + filePath" target="_blank">
+                              View File
+                            </a>
+                          </p>
+                        </div>
+                      </div>
+
+                      <p v-else>
                         <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
                       </p>
                     </div>
@@ -509,18 +501,19 @@
               </template>
             </tbody>
           </table>
-          
-          <div class="empty-box" v-else>
-            <h3>No Quote Requests</h3>
-            <p>Quote requests from clients will appear here.</p>
-          </div>
+        </div>
+
+        <div class="empty-box" v-if="quoteRequests.length === 0">
+          <h3>No Quote Requests</h3>
+          <p>Quote requests from clients will appear here.</p>
         </div>
       </div>
     </div>
 
 
-    <!-- insurance forms -->
 
+    
+    <!-- insurance forms -->
     <div v-if="currentPage === 'homeForm'" class="page form-main-page">
       <div class="form-box">
         <button class="back-btn" v-on:click="goTo('categories')">
@@ -596,15 +589,14 @@
       </div>
     </div>
 
-
     <div v-if="currentPage === 'autoForm'" class="page form-main-page">
       <div class="form-box">
         <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
         <div class="form-top">
-      
           <h2>Auto Insurance Quote</h2>
           <p>Please provide your information to receive a personalized auto insurance quote.</p>
         </div>
+
         <form class="form-main" v-on:submit.prevent="submitAutoForm">
           <div class="form-block">
             <h3>Personal Information</h3>
@@ -631,6 +623,7 @@
               </div>
             </div>
           </div>
+          
           <div class="form-block">
             <h3>Vehicle Information</h3>
             <div class="form-layout">
@@ -685,22 +678,19 @@
             </div>
           </div>
 
-          
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
     </div>
 
-
     <div v-if="currentPage === 'generalForm'" class="page form-main-page">
       <div class="form-box">
         <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
         <div class="form-top">
-      
           <h2>General Liability Insurance Quote</h2>
           <p>Please provide your information to receive a personalized general liability insurance quote.</p>
-     
         </div>
+
         <form class="form-main" v-on:submit.prevent="submitGeneralForm">
           <div class="form-block">
             <h3>Personal Information</h3>
@@ -723,6 +713,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-block">
             <h3>Business Information</h3>
             <div class="form-layout">
@@ -758,26 +749,23 @@
                 <label>Additional Coverage</label>
                 <input type="text" v-model="generalForm.additionalCoverage" placeholder="Inland Marine, Property Insurance, Umbrella etc.." />
               </div>
-              
             </div>
           </div>
+
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
     </div>
 
-
-
-  <!-- wokerss comp form  -->
+    <!-- wokerss comp form  -->
     <div v-if="currentPage === 'workersCompForm'" class="page form-main-page">
       <div class="form-box">
         <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
         <div class="form-top">
-      
           <h2>Workers Compensation Insurance Quote</h2>
           <p>Please provide your information to receive a personalized workers compensation insurance quote.</p>
-     
         </div>
+
         <form class="form-main" v-on:submit.prevent="submitWorkersCompForm">
           <div class="form-block">
             <h3>Personal Information</h3>
@@ -800,6 +788,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-block">
             <h3>Business Information</h3>
             <div class="form-layout">
@@ -831,26 +820,23 @@
                 <label>Payroll Amount</label>
                 <input type="text" v-model="workersCompForm.payroll" required placeholder="123" />
               </div>
-              
             </div>
           </div>
+
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
     </div>
-
-
 
     <!-- inland marine form -->
     <div v-if="currentPage === 'inlandForm'" class="page form-main-page">
       <div class="form-box">
         <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
         <div class="form-top">
-      
           <h2>Inland Marine Insurance Quote</h2>
           <p>Please provide your information to receive a personalized inland marine insurance quote.</p>
-     
         </div>
+
         <form class="form-main" v-on:submit.prevent="submitInlandForm">
           <div class="form-block">
             <h3>Personal Information</h3>
@@ -873,6 +859,7 @@
               </div>
             </div>
           </div>
+
           <div class="form-block">
             <h3>Construction Information</h3>
             <div class="form-layout">
@@ -922,135 +909,126 @@
                 <input type="text" v-model="inlandForm.descriptionOfOperation" required placeholder="building home"/>
               </div>
             </div>
+
             <div class="input-group">
               <label>Estimation Completion Date</label>
               <input type="text" v-model="inlandForm.estimatedCompletionDate" required placeholder="End of May, 2026"/>
             </div>
           </div>
+
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
     </div>
 
+    <!-- life form  -->
+    <div v-if="currentPage === 'lifeForm'" class="page form-main-page">
+      <div class="form-box">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
+        <div class="form-top">
+          <h2>Life Insurance Quote</h2>
+          <p>Please provide your information to receive a personalized life insurance quote.</p>
+        </div>
 
+        <form class="form-main" v-on:submit.prevent="submitLifeForm">
+          <div class="form-block">
+            <h3>Personal Information</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" v-model="lifeForm.fullName" required placeholder="John Doe" />
+              </div>
+              <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" v-model="lifeForm.email" required placeholder="john@example.com" />
+              </div>
+              <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="lifeForm.phone" required placeholder="(555) 123-4567" />
+              </div>
+              <div class="input-group">
+                <label>Home Address</label>
+                <input type="text" v-model="lifeForm.address" required placeholder="123 Main St" />
+              </div>
+              <div class="input-group">
+                <label>Date Of Birth</label>
+                <input type="date" v-model="lifeForm.dateOfBirth" required />
+              </div>
+            </div>
+          </div>
 
+          <div class="form-block">
+            <h3>Policy Information</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Beneficiarie Names</label>
+                <input type="text" v-model="lifeForm.beneficiaryNames" required placeholder="John Doe"/>
+              </div>
+              <div class="input-group">
+                <label>Smoker Status</label>
+                <select v-model="lifeForm.smokerStatus" required>
+                  <option value="">Select status</option>
+                  <option value="non-smoker">Non-Smoker</option>
+                  <option value="smoker">Smoker</option>
+                  <option value="former-smoker">Former Smoker</option>
+                </select>
+              </div>
+              <div class="input-group">
+                <label>Annual Income</label>
+                <input type="text" v-model="lifeForm.annualIncome" required placeholder="123" />
+              </div>
+              <div class="input-group">
+                <label>Medical History</label>
+                <input type="text" v-model="lifeForm.medicalHistory" required placeholder="123" />
+              </div>
+            </div>
+          </div>
 
-      <!-- life form  -->
-      <div v-if="currentPage === 'lifeForm'" class="page form-main-page">
-        <div class="form-box">
-          <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
-          <div class="form-top">
+          <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- other form -->
+    <div v-if="currentPage === 'otherForm'" class="page form-main-page">
+      <div class="form-box">
+        <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
         
-            <h2>Life Insurance Quote</h2>
-            <p>Please provide your information to receive a personalized life insurance quote.</p>
-       
-          </div>
-          <form class="form-main" v-on:submit.prevent="submitLifeForm">
-            <div class="form-block">
-              <h3>Personal Information</h3>
-              <div class="form-layout">
-                <div class="input-group">
-                  <label>Full Name</label>
-                  <input type="text" v-model="lifeForm.fullName" required placeholder="John Doe" />
-                </div>
-                <div class="input-group">
-                  <label>Email Address</label>
-                  <input type="email" v-model="lifeForm.email" required placeholder="john@example.com" />
-                </div>
-                <div class="input-group">
-                  <label>Phone Number</label>
-                  <input type="tel" v-model="lifeForm.phone" required placeholder="(555) 123-4567" />
-                </div>
-                <div class="input-group">
-                  <label>Home Address</label>
-                  <input type="text" v-model="lifeForm.address" required placeholder="123 Main St" />
-                </div>
-                <div class="input-group">
-                  <label>Date Of Birth</label>
-                  <input type="date" v-model="lifeForm.dateOfBirth" required />
-                </div>
-              </div>
-            </div>
-            <div class="form-block">
-              <h3>Policy Information</h3>
-              <div class="form-layout">
-                <div class="input-group">
-                  <label>Beneficiarie Names</label>
-                  <input type="text" v-model="lifeForm.beneficiaryNames" required placeholder="John Doe"/>
-                </div>
-                <div class="input-group">
-                  <label>Smoker Status</label>
-                  <select v-model="lifeForm.smokerStatus" required>
-                    <option value="">Select status</option>
-                    <option value="non-smoker">Non-Smoker</option>
-                    <option value="smoker">Smoker</option>
-                    <option value="former-smoker">Former Smoker</option>
-                  </select>
-                </div>
-                <div class="input-group">
-                  <label>Annual Income</label>
-                  <input type="text" v-model="lifeForm.annualIncome" required placeholder="123" />
-                </div>
-                <div class="input-group">
-                  <label>Medical History</label>
-                  <input type="text" v-model="lifeForm.medicalHistory" required placeholder="123" />
-                </div>
-                
-              </div>
-            </div>
-            <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
-          </form>
+        <div class="form-top">
+          <h2>Other Insurance Inquiry</h2>
+          <p>Please provide your contact information and details about your request.</p>
         </div>
-      </div>
 
+        <form class="form-main" v-on:submit.prevent="submitOtherForm">
+          <div class="form-block">
+            <h3>Contact Information</h3>
+            <div class="form-layout">
 
-
-      <!-- other form -->
-      <div v-if="currentPage === 'otherForm'" class="page form-main-page">
-        <div class="form-box">
-          <button class="back-btn" v-on:click="goTo('categories')">← Back to Categories</button>
-          
-          <div class="form-top">
-            <h2>Other Insurance Inquiry</h2>
-            <p>Please provide your contact information and details about your request.</p>
+              <div class="input-group">
+                <label>Full Name</label>
+                <input type="text" v-model="otherForm.fullName" required placeholder="John Doe"/>
+              </div>
+              <div class="input-group">
+                <label>Email Address</label>
+                <input type="email" v-model="otherForm.email" required placeholder="john@example.com"/>
+              </div>
+              <div class="input-group">
+                <label>Phone Number</label>
+                <input type="tel" v-model="otherForm.phone" required placeholder="(555) 123-4567"/>
+              </div>
+              <div class="input-group">
+                <label>Type of Insurance Needed</label>
+                <input type="tel" v-model="otherForm.coverageDetails" placeholder="Example: Flood, Umbrella, Cyber, etc."/>
+              </div>
+            </div>
           </div>
 
-          <form class="form-main" v-on:submit.prevent="submitOtherForm">
-            
-            <div class="form-block">
-              <h3>Contact Information</h3>
-              <div class="form-layout">
-
-                <div class="input-group">
-                  <label>Full Name</label>
-                  <input type="text" v-model="otherForm.fullName" required placeholder="John Doe"/>
-                </div>
-                <div class="input-group">
-                  <label>Email Address</label>
-                  <input type="email" v-model="otherForm.email" required placeholder="john@example.com"/>
-                </div>
-                <div class="input-group">
-                  <label>Phone Number</label>
-                  <input type="tel" v-model="otherForm.phone" required placeholder="(555) 123-4567"/>
-                </div>
-                <div class="input-group">
-                  <label>Type of Insurance Needed</label>
-                  <input type="tel" v-model="otherForm.coverageDetails" placeholder="Example: Flood, Umbrella, Cyber, etc."/>
-                </div>
-              </div>
-            </div>
-
-            <button type="submit" class="btn-primary btn-submit">
-              Submit Inquiry →
-            </button>
-
-          </form>
-        </div>
+          <button type="submit" class="btn-primary btn-submit">
+            Submit Inquiry →
+          </button>
+        </form>
       </div>
-
-
-
-
+    </div>
 
     <!-- Footer -->
     <footer>
