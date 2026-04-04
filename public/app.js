@@ -46,6 +46,13 @@ const app = createApp({
       //quote has been seen by the agent
       seenQuotes: JSON.parse(localStorage.getItem("seenQuotes") || "[]"),
 
+      agentQuoteForm: {
+        premium: "",
+        carrier: "",
+        agent_notes: "",
+      },
+
+    
       // HOME form data
       homeForm: {
         fullName: "",
@@ -379,7 +386,14 @@ const app = createApp({
     quoteDetails(id) {
       this.selectedQuoteId = this.selectedQuoteId === id ? null : id;
       this.markQuoteSeen(id);
+      
+      const quote = this.quoteRequests.find(q => q.id === id);
+      if (quote && this.selectedQuoteId === id) {
+        this.fillAgentQuoteForm(quote);
+      }
     },
+
+
 
     formatQuoteDetails(key) {
       return key
@@ -413,6 +427,40 @@ const app = createApp({
       }
     },
 
+
+
+    fillAgentQuoteForm(quote) {
+      this.agentQuoteForm.premium = quote.premium || "";
+      this.agentQuoteForm.carrier = quote.carrier || "";
+      this.agentQuoteForm.agent_notes = quote.agent_notes || "";
+    },
+    
+    async saveAgentQuote(id) {
+      try {
+        const res = await fetch(`https://riverside-api.onrender.com/quotes/${id}/agent-update`, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            premium: this.agentQuoteForm.premium,
+            carrier: this.agentQuoteForm.carrier,
+            agent_notes: this.agentQuoteForm.agent_notes,
+          }),
+        });
+    
+        if (!res.ok) {
+          const text = await res.text().catch(() => "");
+          console.error("Saving agent quote failed:", res.status, text);
+          alert("Saving quote update failed.");
+          return;
+        }
+    
+        await this.loadQuotes();
+        alert("Quote updated successfully.");
+      } catch (err) {
+        console.error("saveAgentQuote error:", err);
+        alert("Error saving quote update.");
+      }
+    },
 
 
 

@@ -173,6 +173,35 @@ app.delete("/quotes/:id", async (req, res) => {
 
 
 
+//agent can update the quote with premium prices, which carrier and anny notes the agent would have 
+app.put("/quotes/:id/agent-update", async (req, res) => {
+  try {
+    const quoteId = req.params.id;
+    const { premium, carrier, agent_notes } = req.body;
+
+    const result = await pool.query(
+      `UPDATE quote_requests
+       SET premium = $1,
+           carrier = $2,
+           agent_notes = $3
+       WHERE id = $4
+       RETURNING *`,
+      [premium || null, carrier || null, agent_notes || null, quoteId]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: "Quote not found" });
+    }
+
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error("PUT /quotes/:id/agent-update error:", err);
+    res.status(500).json({ error: "Database error", detail: err.message });
+  }
+});
+
+
+
 // agent sign up
 app.post("/auth/agent/signup", async (req, res) => {
   try {

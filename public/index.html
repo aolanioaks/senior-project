@@ -369,6 +369,11 @@
                           <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
                         </p>
                       </div>
+                      <div v-if="quote.premium || quote.carrier || quote.agent_notes" class="agent-quote-view">
+                        <p><strong>Premium:</strong> {{ quote.premium || 'Not added yet' }}</p>
+                        <p><strong>Carrier:</strong> {{ quote.carrier || 'Not added yet' }}</p>
+                        <p><strong>Agent Notes:</strong> {{ quote.agent_notes || 'Not added yet' }}</p>
+                      </div>
                     </td>
                   </tr>
           
@@ -504,8 +509,33 @@
                         <strong>{{ formatQuoteDetails(key) }}:</strong> {{ value }}
                       </p>
                     </div>
+                    <div class="agent-quote-edit">
+                      <h4>Agent Quote Update</h4>
+                
+                      <div class="form-layout">
+                        <div class="input-group">
+                          <label>Premium</label>
+                          <input type="text" v-model="agentQuoteForm.premium" placeholder="$1,250/year" />
+                        </div>
+                
+                        <div class="input-group">
+                          <label>Carrier</label>
+                          <input type="text" v-model="agentQuoteForm.carrier" placeholder="Progressive" />
+                        </div>
+                
+                        <div class="input-group wide-input">
+                          <label>Agent Notes</label>
+                          <input type="text" v-model="agentQuoteForm.agent_notes" placeholder="Good driving record, recommended full coverage." />
+                        </div>
+                      </div>
+                
+                      <button class="btn-primary" v-on:click="saveAgentQuote(quote.id)">
+                        Save Quote Update
+                      </button>
+                    </div>
                   </td>
                 </tr>
+
               </template>
             </tbody>
           </table>
@@ -1045,7 +1075,7 @@
       </div>
     </div>
 
-    
+
     <!-- Footer -->
     <footer>
       <div class="footer-wrap">
