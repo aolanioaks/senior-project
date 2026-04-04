@@ -344,14 +344,12 @@ body {
 
 /* ── FORMS ────────────────────────────────────────── */
 .form-main-page { background: var(--bg); }
-.form-box { max-width: 840px; margin: 3.5rem auto; padding: 2.5rem 3rem; background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius-lg); }
 .form-top { text-align: center; margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
 .form-top h2 { font-family: var(--font-display); font-size: 2.313rem; font-weight: 600; line-height: 1.04; letter-spacing: 0.01em; color: var(--text); margin-bottom: 0.5rem; }
 .form-top p { font-size: 0.9375rem; color: var(--text-muted); line-height: 1.6; }
 .form-main { display: flex; flex-direction: column; gap: 2.5rem; }
 .form-block { display: flex; flex-direction: column; gap: 1.25rem; }
 .form-block h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; letter-spacing: 0.02em; color: var(--text); padding-bottom: 0.5rem; border-bottom: 1px solid var(--border); text-transform: uppercase; }
-.form-layout { display: grid; grid-template-columns: repeat(2,1fr); gap: 1.25rem; }
 .input-group input[type="file"] {
   width: 100%;
   padding: 0.85rem 1rem;
