@@ -472,6 +472,7 @@ const app = createApp({
     async submitHomeForm() {
       try {
         const formData = new FormData();
+
         const payload = {
           address: this.homeForm.address,
           propertyType: this.homeForm.propertyType,
@@ -544,13 +545,6 @@ const app = createApp({
           body: formData,
         });
     
-        if (!response.ok) {
-          const text = await response.text().catch(() => "");
-          console.error("Submitting auto quote failed:", response.status, text);
-          alert("Auto quote submission failed.");
-          return;
-        }
-    
         await response.json();
         await this.loadClientQuotes();
         alert("Auto Insurance Quote Request Submitted! An agent will contact you soon.");
@@ -562,96 +556,208 @@ const app = createApp({
     },
 
     async submitGeneralForm() {
-      const payload = { ...this.generalForm };
+      try{
+        const formData = new FormData();
 
-      const saved = await this.sendQuote(
-        "general",
-        this.generalForm.fullName,
-        this.generalForm.email,
-        this.generalForm.phone,
-        payload
-      );
+        const payload = {
+          businessName: this.generalForm.businessName,
+          businessAddress: this.generalForm.businessAddress,
+          businessType: this.generalForm.businessType,
+          numberOfEmployees: this.generalForm.numberOfEmployees,
+          annualRevenue: this.generalForm.annualRevenue,
+          startYear: this.generalForm.startYear,
+          payroll: this.generalForm.payroll,
+          additionalCoverage: this.generalForm.additionalCoverage,
+        };
+        formData.append("quote_type", "general_liability");
+        formData.append("full_name", this.generalForm.fullName);
+        formData.append("email", this.generalForm.email);
+        formData.append("phone", this.generalForm.phone);
+        formData.append("payload", JSON.stringify(payload));
 
-      if (!saved) return;
+        if (this.generalForm.previousPolicyFile) {
+          formData.append("previousPolicyFile", this.generalForm.previousPolicyFile);
+        }
 
-      await this.loadClientQuotes();
-      alert("General Liability Insurance Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        await response.json();
+        await this.loadClientQuotes();
+        alert("General Liability Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.goTo("clientDashboard");
+      } catch (err) {
+        console.error("submitGeneralForm error:", err);
+        alert("General Liability quote failed to submit.");}
     },
+
+
 
     async submitWorkersCompForm() {
-      const payload = { ...this.workersCompForm };
+      try{
+        const formData = new FormData();
 
-      const saved = await this.sendQuote(
-        "workers_comp",
-        this.workersCompForm.fullName,
-        this.workersCompForm.email,
-        this.workersCompForm.phone,
-        payload
-      );
+        const payload = {
+          address: this.workersCompForm.address,
+          businessName: this.workersCompForm.businessName,
+          businessAddress: this.workersCompForm.businessAddress,
+          businessType: this.workersCompForm.businessType,
+          FEIN: this.workersCompForm.FEIN,
+          annualRevenue: this.workersCompForm.annualRevenue,
+          startYear: this.workersCompForm.startYear,
+          payroll: this.workersCompForm.payroll,
+        };
+    
+        formData.append("quote_type", "workersComp");
+        formData.append("full_name", this.workersCompForm.fullName);
+        formData.append("email", this.workersCompForm.email);
+        formData.append("phone", this.workersCompForm.phone);
+        formData.append("payload", JSON.stringify(payload));
+    
+        if (this.workersCompForm.previousPolicyFile) {
+          formData.append("previousPolicyFile", this.workersCompForm.previousPolicyFile);
+        }
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
+          method: "POST",
+          body: formData,
+        });
+        await response.json();
+        await this.loadClientQuotes();
+        alert("Workers Comp Quote Request Submitted! An agent will contact you soon.");
+        this.goTo("clientDashboard");
 
-      if (!saved) return;
-
-      await this.loadClientQuotes();
-      alert("Workers Comp Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+      } catch (err) {
+        console.error("submitWorkersCompForm error:", err);
+        alert("Workers Comp quote failed to submit.");
+        return;
+      }
     },
+
+
+
     async submitInlandForm() {
-        const payload = { ...this.inlandForm };
-    
-        const saved = await this.sendQuote(
-            "inland_marine",
-            this.inlandForm.fullName,
-            this.inlandForm.email,
-            this.inlandForm.phone,
-            payload
-        );
-    
-        if (!saved) return;
-    
+      try{
+        const formData = new FormData();
+
+        const payload = {
+          address: this.inlandForm.address,
+          ownerOrContractor: this.inlandForm.ownerOrContractor,
+          businessName: this.inlandForm.businessName,
+          businessAddress: this.inlandForm.businessAddress,
+          businessType: this.inlandForm.businessType,
+          equipmentType: this.inlandForm.equipmentType,
+          equipmentMake: this.inlandForm.equipmentMake,
+          equipmentModel: this.inlandForm.equipmentModel,
+          serialNumber: this.inlandForm.serialNumber,
+          equipmentValue: this.inlandForm.equipmentValue,
+          descriptionOfOperation: this.inlandForm.descriptionOfOperation,
+          estimatedCompletionDate: this.inlandForm.estimatedCompletionDate,
+        };
+
+        formData.append("quote_type", "inland_marine");
+        formData.append("full_name", this.inlandForm.fullName);
+        formData.append("email", this.inlandForm.email);
+        formData.append("phone", this.inlandForm.phone);
+        formData.append("payload", JSON.stringify(payload));
+
+        if(this.inlandForm.previousPolicyFile){
+          formData.append("previousPolicyFile", this.inlandForm.previousPolicyFile);
+        }
+        const response = await fetch("https://riverside-api.onrender.com/quotes/inland-upload", {
+          method: "POST",
+          body: formData,
+
+        });
+        await response.json();
         await this.loadClientQuotes();
         alert("Inland Marine Quote Request Submitted! An agent will contact you soon.");
         this.goTo("clientDashboard");
+
+      }
+      catch (err) {
+        console.error("submitInlandForm error:", err);
+        alert("Inland Marine quote fialed to submit.");
+      }
     },
+
+
 
     async submitLifeForm() {
-      const payload = { ...this.lifeForm };
+      try{
+        const formData = new FormData();
 
-      const saved = await this.sendQuote(
-        "life",
-        this.lifeForm.fullName,
-        this.lifeForm.email,
-        this.lifeForm.phone,
-        payload
-      );
+        const payload = {
+          dateOfBirth: this.lifeForm.dateOfBirth,
+          smokerStatus: this.lifeForm.smokerStatus,
+          annualIncome: this.lifeForm.annualIncome,
+          medicalHistory: this.lifeForm.medicalHistory,
+          beneficiaryNames: this.lifeForm.beneficiaryNames,
+        };
 
-      if (!saved) return;
+        formData.append("quote_type", "life");
+        formData.append("full_name", this.lifeForm.fullName);
+        formData.append("email", this.lifeForm.email);
+        formData.append("phone", this.lifeForm.phone);
+        formData.append("payload", JSON.stringify(payload));
 
-      await this.loadClientQuotes();
-      alert("Life Insurance Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+        if(this.lifeForm.previousPolicyFile){
+          formData.append("previousPolicyFile", this.lifeForm.previousPolicyFile);
+        }
+
+        const response = await fetch("https://riverside-api.onrender.com/quotes/life-upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        await response.json();
+        await this.loadClientQuotes();
+        alert("Life Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.goTo("clientDashboard");
+
+      } catch (err) {
+        console.error("submitLifeForm error:", err);
+        alert("Life quote failed to submit.");
+      }
     },
+
 
     async submitOtherForm() {
-      const payload = { ...this.otherForm };
+      try{
+        const formData = new FormData();
+        const payload = {
+          coverageDetails: this.otherForm.coverageDetails,
+        };
+        formData.append("quote_type", "other");
+        formData.append("full_name", this.otherForm.fullName);
+        formData.append("email", this.otherForm.email);
+        formData.append("phone", this.otherForm.phone);
+        formData.append("payload", JSON.stringify(payload));
 
-      const saved = await this.sendQuote(
-        "other",
-        this.otherForm.fullName,
-        this.otherForm.email,
-        this.otherForm.phone,
-        payload
-      );
+        if(this.otherForm.previousPolicyFile){
+          formData.append("previousPolicyFile", this.otherForm.previousPolicyFile);
+        }
 
-      if (!saved) return;
+        const response = await fetch("https://riverside-api.onrender.com/quotes/other-upload", {
+          method: "POST",
+          body: formData,
+        });
 
-      await this.loadClientQuotes();
-      alert("Insurance Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+        await response.json();
+        await this.loadClientQuotes();
+        alert("Insurance Quote Request Submitted! An agent will contact you soon.");
+
+      }catch (err) {
+        console.error("submitOtherForm error:", err);
+        alert("Quote failed to submit.");
+      }
     },
 
 
 
+
+    
     async handleAgentAuth() {
       try {
         const endpoint = this.isAgentSignup

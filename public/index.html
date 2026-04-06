@@ -633,6 +633,7 @@
               </div>
             </div>
           </div>
+
           <button type="submit" class="btn-primary btn-submit">
             Submit Quote Request →
           </button>
@@ -805,6 +806,20 @@
               </div>
             </div>
           </div>
+          
+          <div class="form-block">
+              <h3>Upload Documents</h3>
+              <div class="form-layout">
+                <div class="input-group">
+                  <label>Previous Policy File</label>
+                  <input
+                    type="file"
+                    accept =".pdf,.jpg,.jpeg,.png"
+                    @change="generalForm.previousPolicyFile = $event.target.files[0]"
+                    />
+                </div>
+              </div>
+            </div>
 
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
@@ -877,6 +892,22 @@
               </div>
             </div>
           </div>
+
+
+          <div class="form-block">
+            <h3>Upload Documents</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Previous Policy File</label>
+                <input
+                  type="file"
+                  accept =".pdf,.jpg,.jpeg,.png"
+                  @change="workersCompForm.previousPolicyFile = $event.target.files[0]"
+                  />
+              </div>
+            </div>
+          </div>
+
 
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
@@ -973,6 +1004,20 @@
             </div>
           </div>
 
+          <div class="form-block">
+            <h3>Upload Documents</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Previous Policy File</label>
+                <input
+                  type="file"
+                  accept =".pdf,.jpg,.jpeg,.png"
+                  @change="inlandForm.previousPolicyFile = $event.target.files[0]"
+                  />
+              </div>
+            </div>
+          </div>
+
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
@@ -1043,6 +1088,20 @@
             </div>
           </div>
 
+          <div class="form-block">
+            <h3>Upload Documents</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Previous Policy File</label>
+                <input
+                  type="file"
+                  accept =".pdf,.jpg,.jpeg,.png"
+                  @change="lifeForm.previousPolicyFile = $event.target.files[0]"
+                  />
+              </div>
+            </div>
+          </div>
+
           <button type="submit" class="btn-primary btn-submit">Submit Quote Request →</button>
         </form>
       </div>
@@ -1080,6 +1139,20 @@
               <div class="input-group">
                 <label>Type of Insurance Needed</label>
                 <input type="tel" v-model="otherForm.coverageDetails" placeholder="Example: Flood, Umbrella, Cyber, etc."/>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-block">
+            <h3>Upload Documents</h3>
+            <div class="form-layout">
+              <div class="input-group">
+                <label>Previous Policy File</label>
+                <input
+                  type="file"
+                  accept =".pdf,.jpg,.jpeg,.png"
+                  @change="otherForm.previousPolicyFile = $event.target.files[0]"
+                  />
               </div>
             </div>
           </div>
