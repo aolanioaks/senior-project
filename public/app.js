@@ -1,5 +1,3 @@
-const { response } = require("express");
-
 const { createApp } = Vue;
 
 const app = createApp({
@@ -506,7 +504,7 @@ const app = createApp({
     },
 
 
-    
+
     async submitAutoForm() {
       try {
         const formData = new FormData();
