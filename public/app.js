@@ -1,3 +1,5 @@
+const { response } = require("express");
+
 const { createApp } = Vue;
 
 const app = createApp({
@@ -470,23 +472,41 @@ const app = createApp({
 
     // forms 
     async submitHomeForm() {
-      const payload = { ...this.homeForm };
+      try {
+        const formData = new FormData();
+        const payload = {
+          address: this.homeForm.address,
+          propertyType: this.homeForm.propertyType,
+          sqft: this.homeForm.sqft,
+          yearBuilt: this.homeForm.yearBuilt,
+          roofType: this.homeForm.roofType,
+        };
+        formData.append("quote_type", "home");
+        formData.append("full_name", this.homeForm.fullName);
+        formData.append("email", this.homeForm.email);
+        formData.append("phone", this.homeForm.phone);
+        formData.append("payload", JSON.stringify(payload));
 
-      const saved = await this.sendQuote(
-        "home",
-        this.homeForm.fullName,
-        this.homeForm.email,
-        this.homeForm.phone,
-        payload
-      );
-
-      if (!saved) return;
-
-      await this.loadClientQuotes();
-      alert("Home Insurance Quote Request Submitted! An agent will contact you soon.");
-      this.goTo("clientDashboard");
+        if(this.homeForm.previousPolicyFile){
+          formData.append("previousPolicyFile", this.homeForm.previousPolicyFile);
+        }
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
+          method: "POST",
+          body: formData,
+        });
+        await response.json();
+        await this.loadClientQuotes();
+        alert("Home Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.goTo("clientDashboard");
+      }
+        catch (err) {
+          console.error("submitHomeForm error:", err);
+          alert("The home quote failed to submit.");
+        }
     },
 
+
+    
     async submitAutoForm() {
       try {
         const formData = new FormData();
