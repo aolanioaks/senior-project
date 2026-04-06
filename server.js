@@ -200,6 +200,41 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
   }
 });
 
+app.post(
+  "/quotes/upload",
+  upload.any(),
+  async (req, res) => {
+    try {
+      const { quote_type, full_name, email, phone, payload } = req.body;
+
+      if (!quote_type || !full_name || !email || !payload) {
+        return res.status(400).json({ error: "Missing required fields" });
+      }
+
+      const parsedPayload = JSON.parse(payload);
+      const files = req.files || [];
+
+      // store all uploaded files dynamically
+      parsedPayload.uploads = {};
+
+      files.forEach(file => {
+        parsedPayload.uploads[file.fieldname] = `/uploads/${file.filename}`;
+      });
+
+      const result = await pool.query(
+        `INSERT INTO quote_requests (quote_type, full_name, email, phone, payload)
+         VALUES ($1, $2, $3, $4, $5)
+         RETURNING *`,
+        [quote_type, full_name, email, phone || null, parsedPayload]
+      );
+
+      res.status(201).json(result.rows[0]);
+    } catch (err) {
+      console.error("POST /quotes/upload error:", err);
+      res.status(500).json({ error: "Database error", detail: err.message });
+    }
+  }
+);
 
 
 // agent sign up

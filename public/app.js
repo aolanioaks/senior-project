@@ -63,7 +63,7 @@ const app = createApp({
         sqft: "",
         yearBuilt: "",
         roofType: "",
-        // previousPolicy: "",
+        previousPolicyFile: null,
       },
 
       // AUTO form data
@@ -94,7 +94,7 @@ const app = createApp({
         annualRevenue: "",
         startYear: "",
         payroll: "",
-        // previousPolicyFile: null,
+        previousPolicyFile: null,
         additionalCoverage: "",
       },
 
@@ -111,7 +111,7 @@ const app = createApp({
         annualRevenue: "",
         startYear: "",
         payroll: "",
-        // previousPolicyFile: null,
+        previousPolicyFile: null,
       },
 
       //inland marine fomr data
@@ -131,6 +131,8 @@ const app = createApp({
             equipmentValue: "",
             descriptionOfOperation: "",
             estimatedCompletionDate: "",
+            previousPolicyFile: null,
+
 
         },
 
@@ -144,7 +146,7 @@ const app = createApp({
         annualIncome: "",
         medicalHistory: "",
         beneficiaryNames: "",
-        // previousPolicyFile: null,
+        previousPolicyFile: null,
       },
 
       // OTHER form data
@@ -153,7 +155,7 @@ const app = createApp({
         email: "",
         phone: "",
         coverageDetails: "",
-        // previousPolicyFile: null,
+        previousPolicyFile: null,
       },
     };
   },
