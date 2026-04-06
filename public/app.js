@@ -665,7 +665,7 @@ const app = createApp({
         if(this.inlandForm.previousPolicyFile){
           formData.append("previousPolicyFile", this.inlandForm.previousPolicyFile);
         }
-        const response = await fetch("https://riverside-api.onrender.com/quotes/inland-upload", {
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
           method: "POST",
           body: formData,
 
@@ -706,7 +706,7 @@ const app = createApp({
           formData.append("previousPolicyFile", this.lifeForm.previousPolicyFile);
         }
 
-        const response = await fetch("https://riverside-api.onrender.com/quotes/life-upload", {
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
           method: "POST",
           body: formData,
         });
@@ -739,7 +739,7 @@ const app = createApp({
           formData.append("previousPolicyFile", this.otherForm.previousPolicyFile);
         }
 
-        const response = await fetch("https://riverside-api.onrender.com/quotes/other-upload", {
+        const response = await fetch("https://riverside-api.onrender.com/quotes/upload", {
           method: "POST",
           body: formData,
         });
@@ -757,7 +757,7 @@ const app = createApp({
 
 
 
-    
+
     async handleAgentAuth() {
       try {
         const endpoint = this.isAgentSignup
