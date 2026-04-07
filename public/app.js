@@ -168,6 +168,16 @@ const app = createApp({
 
   methods: {
 
+    showToast(message, type = "info") {
+      this.toast.message = message;
+      this.toast.type = type;
+      this.toast.show = true;
+
+      setTimeout(() => {
+        this.toast.show = false;
+      }, 3000);
+    },
+
     async goTo(page) {
       console.log("Go to: ", page);
       this.currentPage = page;
