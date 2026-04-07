@@ -175,8 +175,23 @@ app.post(
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
-      res.status(201).json(result.rows[0]);
-    } catch (err) {
+      const newQuote = result.rows[0];
+
+      await sendEmail({
+        to: process.env.AGENCY_NOTIFY_EMAIL,
+        subject: `New ${newQuote.quote_type} quote request`,
+        html: `
+          <h2>New Quote Request</h2>
+          <p><strong>Type:</strong> ${newQuote.quote_type}</p>
+          <p><strong>Name:</strong> ${newQuote.full_name}</p>
+          <p><strong>Email:</strong> ${newQuote.email}</p>
+          <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
+          <p>Please log in to the agent dashboard to review the submission.</p>
+        `,
+      });
+      
+      res.status(201).json(newQuote);
+      } catch (err) {
       console.error("POST /quotes/auto-upload error:", err);
       res.status(500).json({ error: "Database error", detail: err.message });
     }
@@ -272,7 +287,22 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
-      res.status(201).json(result.rows[0]);
+      const newQuote = result.rows[0];
+
+      await sendEmail({
+        to: process.env.AGENCY_NOTIFY_EMAIL,
+        subject: `New ${newQuote.quote_type} quote request`,
+        html: `
+          <h2>New Quote Request</h2>
+          <p><strong>Type:</strong> ${newQuote.quote_type}</p>
+          <p><strong>Name:</strong> ${newQuote.full_name}</p>
+          <p><strong>Email:</strong> ${newQuote.email}</p>
+          <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
+          <p>Please log in to the agent dashboard to review the submission.</p>
+        `,
+      });
+
+      res.status(201).json(newQuote);
     } catch (err) {
       console.error("POST /quotes/upload error:", err);
       res.status(500).json({ error: "Database error", detail: err.message });
@@ -315,7 +345,7 @@ app.post("/auth/agent/signup", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-
+    
     res.status(201).json({ agent, token });
   } catch (err) {
     console.error("error creating agent account", err);
