@@ -83,7 +83,12 @@ app.post("/quotes", async (req, res) => {
       `INSERT INTO quote_requests (quote_type, full_name, email, phone, payload)
        VALUES ($1, $2, $3, $4, $5)
        RETURNING *`,
-      [quote_type, full_name, email, phone || null, payload]
+      [
+        quote_type, 
+        full_name, 
+        email, 
+        phone || null, 
+        payload]
     );
 
     res.status(201).json(result.rows[0]);
@@ -177,16 +182,23 @@ app.delete("/quotes/:id", async (req, res) => {
 app.put("/quotes/:id/agent-update", async (req, res) => {
   try {
     const quoteId = req.params.id;
-    const { premium, carrier, agent_notes } = req.body;
+    const { premium, carrier, agent_notes, status } = req.body;
 
     const result = await pool.query(
       `UPDATE quote_requests
        SET premium = $1,
            carrier = $2,
            agent_notes = $3
+           status = $4
        WHERE id = $4
        RETURNING *`,
-      [premium || null, carrier || null, agent_notes || null, quoteId]
+      [
+        premium || null, 
+        carrier || null, 
+        agent_notes || null, 
+        status || "Pending",
+        quoteId
+      ]
     );
 
     if (result.rows.length === 0) {
@@ -200,10 +212,7 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
   }
 });
 
-app.post(
-  "/quotes/upload",
-  upload.any(),
-  async (req, res) => {
+app.post("/quotes/upload", upload.any(), async (req, res) => {
     try {
       const { quote_type, full_name, email, phone, payload } = req.body;
 
@@ -214,7 +223,6 @@ app.post(
       const parsedPayload = JSON.parse(payload);
       const files = req.files || [];
 
-      // store all uploaded files dynamically
       parsedPayload.uploads = {};
 
       files.forEach(file => {

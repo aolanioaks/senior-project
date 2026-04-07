@@ -50,6 +50,7 @@ const app = createApp({
         premium: "",
         carrier: "",
         agent_notes: "",
+        status: "Pending",
       },
 
     
@@ -451,6 +452,7 @@ const app = createApp({
       this.agentQuoteForm.premium = quote.premium || "";
       this.agentQuoteForm.carrier = quote.carrier || "";
       this.agentQuoteForm.agent_notes = quote.agent_notes || "";
+      this.agentQuoteForm.status = quote.status || "Pending";
     },
     
     async saveAgentQuote(id) {
@@ -462,6 +464,7 @@ const app = createApp({
             premium: this.agentQuoteForm.premium,
             carrier: this.agentQuoteForm.carrier,
             agent_notes: this.agentQuoteForm.agent_notes,
+            status: this.agentQuoteForm.status,
           }),
         });
     
