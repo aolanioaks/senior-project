@@ -76,6 +76,11 @@ async function sendEmail({ to, subject, html }) {
 }
 
 
+
+
+
+
+
 // GET all quotes
 app.get("/quotes", async (req, res) => {
   try {
@@ -111,7 +116,9 @@ app.post("/quotes", async (req, res) => {
         phone || null, 
         payload]
     );
-
+    console.log("EMAIL_USER:", process.env.EMAIL_USER);
+    console.log("AGENCY_NOTIFY_EMAIL:", process.env.AGENCY_NOTIFY_EMAIL);
+    console.log("EMAIL_PASS set?", !!process.env.EMAIL_PASS);
     const newQuote = result.rows[0];
 
     sendEmail({
