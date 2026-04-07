@@ -126,7 +126,17 @@ app.post("/quotes", async (req, res) => {
         <p>Please log in to the agent dashboard to review the submission.</p>
       `,
     });
-    
+    await sendEmail({
+      to: newQuote.email,
+      subject: `We received your ${newQuote.quote_type} quote request`,
+      html: `
+        <h2>Thanks, ${newQuote.full_name}!</h2>
+        <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
+        <p>An agent will review your submission and be in touch shortly.</p>
+        <p>— Riverside Business Insurance</p>
+      `,
+    });
+
     res.status(201).json(newQuote); 
   } catch (err) {
     console.error("POST /quotes error:", err);
@@ -187,6 +197,17 @@ app.post(
           <p><strong>Email:</strong> ${newQuote.email}</p>
           <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
           <p>Please log in to the agent dashboard to review the submission.</p>
+        `,
+      });
+
+      await sendEmail({
+        to: newQuote.email,
+        subject: `We received your ${newQuote.quote_type} quote request`,
+        html: `
+          <h2>Thanks, ${newQuote.full_name}!</h2>
+          <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
+          <p>An agent will review your submission and be in touch shortly.</p>
+          <p>— Riverside Business Insurance</p>
         `,
       });
       
@@ -299,6 +320,17 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
           <p><strong>Email:</strong> ${newQuote.email}</p>
           <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
           <p>Please log in to the agent dashboard to review the submission.</p>
+        `,
+      });
+
+      await sendEmail({
+        to: newQuote.email,
+        subject: `We received your ${newQuote.quote_type} quote request`,
+        html: `
+          <h2>Thanks, ${newQuote.full_name}!</h2>
+          <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
+          <p>An agent will review your submission and be in touch shortly.</p>
+          <p>— Riverside Business Insurance</p>
         `,
       });
 
