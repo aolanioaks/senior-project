@@ -157,6 +157,12 @@ const app = createApp({
         coverageDetails: "",
         previousPolicyFile: null,
       },
+
+      toast: {
+        show: false,
+        message: "",
+        type: "info"
+      }
     };
   },
 
@@ -227,7 +233,7 @@ const app = createApp({
         if (!res.ok) {
           const text = await res.text().catch(() => "");
           console.error("Client auth failed:", res.status, text);
-          alert("Client login/signup failed.");
+          this.showToast("Client login/signup failed.");
           return;
         }
     
@@ -254,7 +260,7 @@ const app = createApp({
         }
       } catch (err) {
         console.error("handleClientAuth error:", err);
-        alert("Client login/signup error.");
+        this.showToast("Client login/signup error.");
       }
     },    
 
@@ -262,11 +268,11 @@ const app = createApp({
     handleAgentAuth() {
       if (this.isAgentSignup) {
         console.log("Agent Signup:", this.agentAuth);
-        alert(`Agent account created for ${this.agentAuth.fullName}!`);
+        this.showToast(`Agent account created for ${this.agentAuth.fullName}!`);
         this.isAgentLoggedIn = true;
       } else {
         console.log("Agent Login:", this.agentAuth.email);
-        alert(`Welcome, Agent ${this.agentAuth.email}!`);
+        this.showToast(`Welcome, Agent ${this.agentAuth.email}!`);
         this.isAgentLoggedIn = true;
       }
 
@@ -297,7 +303,7 @@ const app = createApp({
         licenseNumber: "" 
       };
       this.goTo("landing");
-      alert("Logged out successfully!");
+      this.showToast("Logged out successfully!");
     },
 
 
