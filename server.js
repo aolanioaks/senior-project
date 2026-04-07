@@ -188,9 +188,9 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
       `UPDATE quote_requests
        SET premium = $1,
            carrier = $2,
-           agent_notes = $3
+           agent_notes = $3,
            status = $4
-       WHERE id = $4
+       WHERE id = $5
        RETURNING *`,
       [
         premium || null, 
