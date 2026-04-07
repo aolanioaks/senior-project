@@ -114,7 +114,7 @@ app.post("/quotes", async (req, res) => {
 
     const newQuote = result.rows[0];
 
-    await sendEmail({
+    sendEmail({
       to: process.env.AGENCY_NOTIFY_EMAIL,
       subject: `New ${newQuote.quote_type} quote request`,
       html: `
@@ -126,7 +126,7 @@ app.post("/quotes", async (req, res) => {
         <p>Please log in to the agent dashboard to review the submission.</p>
       `,
     });
-    await sendEmail({
+    sendEmail({
       to: newQuote.email,
       subject: `We received your ${newQuote.quote_type} quote request`,
       html: `
@@ -187,7 +187,7 @@ app.post(
 
       const newQuote = result.rows[0];
 
-      await sendEmail({
+      sendEmail({
         to: process.env.AGENCY_NOTIFY_EMAIL,
         subject: `New ${newQuote.quote_type} quote request`,
         html: `
@@ -200,7 +200,7 @@ app.post(
         `,
       });
 
-      await sendEmail({
+      sendEmail({
         to: newQuote.email,
         subject: `We received your ${newQuote.quote_type} quote request`,
         html: `
@@ -310,7 +310,7 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
 
       const newQuote = result.rows[0];
 
-      await sendEmail({
+      sendEmail({
         to: process.env.AGENCY_NOTIFY_EMAIL,
         subject: `New ${newQuote.quote_type} quote request`,
         html: `
@@ -323,7 +323,7 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
         `,
       });
 
-      await sendEmail({
+      sendEmail({
         to: newQuote.email,
         subject: `We received your ${newQuote.quote_type} quote request`,
         html: `
