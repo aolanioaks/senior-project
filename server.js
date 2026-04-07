@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
+const nodemailer = require("nodemailer");
 
 const app = express();
 
@@ -53,6 +54,26 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+
+async function sendEmail({ to, subject, html }) {
+  try {
+    await transporter.sendMail({
+      from: `"Riverside Business Insurance" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      html,
+    });
+  } catch (err) {
+    console.error("Email send error:", err);
+  }
+}
 
 
 // GET all quotes
@@ -91,7 +112,22 @@ app.post("/quotes", async (req, res) => {
         payload]
     );
 
-    res.status(201).json(result.rows[0]);
+    const newQuote = result.rows[0];
+
+    await sendEmail({
+      to: process.env.AGENCY_NOTIFY_EMAIL,
+      subject: `New ${newQuote.quote_type} quote request`,
+      html: `
+        <h2>New Quote Request</h2>
+        <p><strong>Type:</strong> ${newQuote.quote_type}</p>
+        <p><strong>Name:</strong> ${newQuote.full_name}</p>
+        <p><strong>Email:</strong> ${newQuote.email}</p>
+        <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
+        <p>Please log in to the agent dashboard to review the submission.</p>
+      `,
+    });
+    
+    res.status(201).json(newQuote); 
   } catch (err) {
     console.error("POST /quotes error:", err);
     res.status(500).json({ error: "Database error", detail: err.message });
