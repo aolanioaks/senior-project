@@ -1,10 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap');
 
 :root {
-  --blue:         #146EF5;
-  --blue-hover:   #3385f7;
-  --blue-dim:     rgba(20,110,245,0.12);
-  --blue-border:  rgba(20,110,245,0.3);
+  --blue:         #1296b5;
+  --blue-hover:   #2cc0df;
+  --blue-dim:     rgba(24,167,201,0.12);
+  --blue-border:  rgba(24,167,201,0.32);
   --bg:           #0a0a0f;
   --bg-2:         #111118;
   --bg-3:         #17171f;
@@ -474,15 +474,15 @@ footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 
 }
 
 .toast.success {
-  background: #16a34a;
+  background: #0f9f7a;
 }
 
 .toast.error {
-  background: #dc2626;
+  background: #c84b5a;
 }
 
 .toast.info {
-  background: #2563eb;
+  background: #1296b5;
 }
 
 @keyframes fadeIn {

@@ -257,7 +257,7 @@ const app = createApp({
         this.clientAuth.phone = data.client.phone || "";
         this.clientAuth.password = "";
     
-        alert(this.isClientSignup ? "Client account created!" : "Client logged in!");
+        this.showToast(this.isClientSignup ? "Client account created!" : "Client logged in!", "success");
         this.isClientSignup = false;  
 
         if (this.pendingFormPage) {
@@ -352,14 +352,14 @@ const app = createApp({
         if (!response.ok) {
           const text = await response.text().catch(() => "");
           console.error("Submitting quote failed:", response.status, text);
-          alert("Quote submission failed.");
+          this.showToast("Quote submission failed.");
           return null;
         }
 
         return await response.json();
       } catch (err) {
         console.error("sendQuote error:", err);
-        alert("Quote submission error.");
+        this.showToast("Quote submission error.");
       }
     },
 
@@ -387,7 +387,7 @@ const app = createApp({
         await this.loadQuotes();
       } catch (err) {
         console.error("deleting quote error:", err);
-        alert("Error deleting quote.");
+        this.showToast("Error deleting quote.");
       }
     },
 
@@ -468,15 +468,15 @@ const app = createApp({
         if (!res.ok) {
           const text = await res.text().catch(() => "");
           console.error("Saving agent quote failed:", res.status, text);
-          alert("Saving quote update failed.");
+          this.showToast("Saving quote update failed.");
           return;
         }
     
         await this.loadQuotes();
-        alert("Quote updated successfully.");
+        this.showToast("Quote updated successfully!", "success");
       } catch (err) {
         console.error("saveAgentQuote error:", err);
-        alert("Error saving quote update.");
+        this.showToast("Error saving quote update.");
       }
     },
 
@@ -511,12 +511,12 @@ const app = createApp({
         });
         await response.json();
         await this.loadClientQuotes();
-        alert("Home Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Home Insurance Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
       }
         catch (err) {
           console.error("submitHomeForm error:", err);
-          alert("The home quote failed to submit.");
+          this.showToast("Home quote submission failed.");
         }
     },
 
@@ -563,11 +563,11 @@ const app = createApp({
     
         await response.json();
         await this.loadClientQuotes();
-        alert("Auto Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Auto Insurance Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
       } catch (err) {
         console.error("submitAutoForm error:", err);
-        alert("Auto quote submission error.");
+        this.showToast("Auto quote submission failed.");
       }
     },
 
@@ -602,11 +602,12 @@ const app = createApp({
 
         await response.json();
         await this.loadClientQuotes();
-        alert("General Liability Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("General Liability Insurance Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
       } catch (err) {
         console.error("submitGeneralForm error:", err);
-        alert("General Liability quote failed to submit.");}
+        this.showToast("General Liability quote submission failed.");
+      }
     },
 
 
@@ -641,12 +642,12 @@ const app = createApp({
         });
         await response.json();
         await this.loadClientQuotes();
-        alert("Workers Comp Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Workers Comp Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
 
       } catch (err) {
         console.error("submitWorkersCompForm error:", err);
-        alert("Workers Comp quote failed to submit.");
+        this.showToast("Workers Comp quote submission failed.");
         return;
       }
     },
@@ -688,13 +689,13 @@ const app = createApp({
         });
         await response.json();
         await this.loadClientQuotes();
-        alert("Inland Marine Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Inland Marine Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
 
       }
       catch (err) {
         console.error("submitInlandForm error:", err);
-        alert("Inland Marine quote fialed to submit.");
+        this.showToast("Inland Marine quote submission failed.");
       }
     },
 
@@ -729,12 +730,12 @@ const app = createApp({
 
         await response.json();
         await this.loadClientQuotes();
-        alert("Life Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Life Insurance Quote Request Submitted! An agent will contact you soon.", "success");
         this.goTo("clientDashboard");
 
       } catch (err) {
         console.error("submitLifeForm error:", err);
-        alert("Life quote failed to submit.");
+        this.showToast("Life quote submission failed.");
       }
     },
 
@@ -762,11 +763,11 @@ const app = createApp({
 
         await response.json();
         await this.loadClientQuotes();
-        alert("Insurance Quote Request Submitted! An agent will contact you soon.");
+        this.showToast("Other Insurance Quote Request Submitted! An agent will contact you soon.", "success");
 
       }catch (err) {
         console.error("submitOtherForm error:", err);
-        alert("Quote failed to submit.");
+        this.showToast("Other quote submission failed.");
       }
     },
 
@@ -801,7 +802,7 @@ const app = createApp({
         if (!res.ok) {
           const text = await res.text().catch(() => "");
           console.error("Agent auth failed:", res.status, text);
-          alert("Agent login/signup failed.");
+          this.showToast("Agent login/signup failed.");
           return;
         }
     
@@ -813,13 +814,13 @@ const app = createApp({
         this.agentAuth.fullName = data.agent.full_name;
         this.agentAuth.email = data.agent.email;
         this.agentAuth.licenseNumber = data.agent.license_number || "";
-    
-        alert(this.isAgentSignup ? "Agent account created!" : "Agent logged in!");
+        
+        this.showToast(this.isAgentSignup ? "Agent account created!" : "Agent logged in!", "success");
         this.isAgentSignup = false;  
         this.goTo("agentDashboard");
       } catch (err) {
         console.error("handleAgentAuth error:", err);
-        alert("Agent login/signup error.");
+        this.showToast("Agent login/signup error.");
       }
     },
 
