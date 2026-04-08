@@ -9,7 +9,7 @@ const jwt = require("jsonwebtoken");
 const path = require("path");
 const fs = require("fs");
 const multer = require("multer");
-const nodemailer = require("nodemailer");
+
 
 const app = express();
 
@@ -54,44 +54,6 @@ const pool = new Pool({
   ssl: { rejectUnauthorized: false },
 });
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
-  requireTLS: true,
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
-  connectionTimeout: 20000,
-  greetingTimeout: 20000,
-  socketTimeout: 30000,
-});
-
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("SMTP verify failed:", error);
-  } else {
-    console.log("SMTP server is ready");
-  }
-});
-async function sendEmail({ to, subject, html }) {
-  try {
-    await transporter.sendMail({
-      from: `"Riverside Business Insurance" <${process.env.EMAIL_USER}>`,
-      to,
-      subject,
-      html,
-    });
-  } catch (err) {
-    console.error("Email send error:", err);
-  }
-}
-
-
-
-
-
 
 
 // GET all quotes
@@ -129,35 +91,8 @@ app.post("/quotes", async (req, res) => {
         phone || null, 
         payload]
     );
-    console.log("EMAIL_USER:", process.env.EMAIL_USER);
-    console.log("AGENCY_NOTIFY_EMAIL:", process.env.AGENCY_NOTIFY_EMAIL);
-    console.log("EMAIL_PASS set?", !!process.env.EMAIL_PASS);
-    const newQuote = result.rows[0];
 
-    sendEmail({
-      to: process.env.AGENCY_NOTIFY_EMAIL,
-      subject: `New ${newQuote.quote_type} quote request`,
-      html: `
-        <h2>New Quote Request</h2>
-        <p><strong>Type:</strong> ${newQuote.quote_type}</p>
-        <p><strong>Name:</strong> ${newQuote.full_name}</p>
-        <p><strong>Email:</strong> ${newQuote.email}</p>
-        <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
-        <p>Please log in to the agent dashboard to review the submission.</p>
-      `,
-    });
-    sendEmail({
-      to: newQuote.email,
-      subject: `We received your ${newQuote.quote_type} quote request`,
-      html: `
-        <h2>Thanks, ${newQuote.full_name}!</h2>
-        <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
-        <p>An agent will review your submission and be in touch shortly.</p>
-        <p>— Riverside Business Insurance</p>
-      `,
-    });
-
-    res.status(201).json(newQuote); 
+    res.status(201).json(result.rows[0]);
   } catch (err) {
     console.error("POST /quotes error:", err);
     res.status(500).json({ error: "Database error", detail: err.message });
@@ -168,8 +103,7 @@ app.post("/quotes", async (req, res) => {
 
 
 // POST auto quote with uploads
-app.post(
-  "/quotes/auto-upload",
+app.post("/quotes/auto-upload",
   upload.fields([
     { name: "driversLicenseFile", maxCount: 1 },
     { name: "vinFile", maxCount: 1 },
@@ -205,34 +139,8 @@ app.post(
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
-      const newQuote = result.rows[0];
-
-      sendEmail({
-        to: process.env.AGENCY_NOTIFY_EMAIL,
-        subject: `New ${newQuote.quote_type} quote request`,
-        html: `
-          <h2>New Quote Request</h2>
-          <p><strong>Type:</strong> ${newQuote.quote_type}</p>
-          <p><strong>Name:</strong> ${newQuote.full_name}</p>
-          <p><strong>Email:</strong> ${newQuote.email}</p>
-          <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
-          <p>Please log in to the agent dashboard to review the submission.</p>
-        `,
-      });
-
-      sendEmail({
-        to: newQuote.email,
-        subject: `We received your ${newQuote.quote_type} quote request`,
-        html: `
-          <h2>Thanks, ${newQuote.full_name}!</h2>
-          <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
-          <p>An agent will review your submission and be in touch shortly.</p>
-          <p>— Riverside Business Insurance</p>
-        `,
-      });
-      
-      res.status(201).json(newQuote);
-      } catch (err) {
+      res.status(201).json(result.rows[0]);
+    } catch (err) {
       console.error("POST /quotes/auto-upload error:", err);
       res.status(500).json({ error: "Database error", detail: err.message });
     }
@@ -328,33 +236,7 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
-      const newQuote = result.rows[0];
-
-      sendEmail({
-        to: process.env.AGENCY_NOTIFY_EMAIL,
-        subject: `New ${newQuote.quote_type} quote request`,
-        html: `
-          <h2>New Quote Request</h2>
-          <p><strong>Type:</strong> ${newQuote.quote_type}</p>
-          <p><strong>Name:</strong> ${newQuote.full_name}</p>
-          <p><strong>Email:</strong> ${newQuote.email}</p>
-          <p><strong>Phone:</strong> ${newQuote.phone || "Not provided"}</p>
-          <p>Please log in to the agent dashboard to review the submission.</p>
-        `,
-      });
-
-      sendEmail({
-        to: newQuote.email,
-        subject: `We received your ${newQuote.quote_type} quote request`,
-        html: `
-          <h2>Thanks, ${newQuote.full_name}!</h2>
-          <p>We've received your <strong>${newQuote.quote_type}</strong> insurance quote request.</p>
-          <p>An agent will review your submission and be in touch shortly.</p>
-          <p>— Riverside Business Insurance</p>
-        `,
-      });
-
-      res.status(201).json(newQuote);
+      res.status(201).json(result.rows[0]);
     } catch (err) {
       console.error("POST /quotes/upload error:", err);
       res.status(500).json({ error: "Database error", detail: err.message });
@@ -397,7 +279,7 @@ app.post("/auth/agent/signup", async (req, res) => {
       process.env.JWT_SECRET,
       { expiresIn: "7d" }
     );
-    
+
     res.status(201).json({ agent, token });
   } catch (err) {
     console.error("error creating agent account", err);
@@ -553,7 +435,3 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-
-// note 
