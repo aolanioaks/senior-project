@@ -469,7 +469,7 @@
 
             <tbody>
               <template v-for="quote in quoteRequests" :key="quote.id">
-                <tr>
+                <tr :class="{ 'quote-new': !seenQuotes.includes(quote.id) }">
                   <td><span class="type-pill">{{ quote.quote_type }}</span></td>
                   <td>{{ quote.full_name }}</td>
                   <td>{{ quote.email }}</td>

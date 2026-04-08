@@ -1064,3 +1064,15 @@ button:active {
     min-width: 680px;
   }
 }
+
+.quote-new td {
+  background: linear-gradient(0deg, rgba(182, 71, 93, 0.08), rgba(182, 71, 93, 0.08));
+}
+
+.quote-new td:first-child {
+  box-shadow: inset 4px 0 0 #c44b62;
+}
+
+.quote-new:hover td {
+  background: linear-gradient(0deg, rgba(182, 71, 93, 0.12), rgba(182, 71, 93, 0.12));
+}
