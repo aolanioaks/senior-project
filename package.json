@@ -28,6 +28,7 @@
     "nodemailer": "^8.0.4",
     "pg": "^8.17.2",
     "psql": "^0.0.1",
-    "selenium-webdriver": "^4.41.0"
+    "selenium-webdriver": "^4.41.0",
+    "twilio": "^5.13.1"
   }
 }
