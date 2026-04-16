@@ -846,18 +846,46 @@ const app = createApp({
       this[formName][fieldName] = file;
     },
 
-    connectSocket() { /* io() setup, listen for newQuote + quoteUpdated */ },
-    addCarrierOption() { this.carrierOptions.push({ carrier: "", premium: "", notes: "" }); },
-    removeCarrierOption(i) { this.carrierOptions.splice(i,1); },
-      
+    connectSocket() { 
+      if (this.socket) return;
+      this.socket = io("https://riverside-api.onrender.com");
+    
+      this.socket.on("newQuote", (quote) => {
+        if (this.isAgentLoggedIn) {
+          this.showToast(`New quote from ${quote.full_name}!`, "info");
+          this.loadQuotes();
+        }
+      });
+    
+      this.socket.on("quoteUpdated", (quote) => {
+        if (
+          this.isClientLoggedIn &&
+          (quote.email || "").toLowerCase() === (this.clientAuth.email || "").toLowerCase()
+        ) {
+          this.showToast(`Your ${quote.quote_type} quote was updated!`, "success");
+          this.loadClientQuotes();
+        }
+      });
+    
+    },
 
-    mounted() { 
-      this.connectSocket(); 
+    addCarrierOption() { 
+      this.agentQuoteForm.carrierOptions.push({ carrier: "", premium: "", notes: "" }); 
+    },
+    removeCarrierOption(i) { 
+      this.agentQuoteForm.carrierOptions.splice(i, 1); 
     },
 
 
 
   },
+
+  
+  mounted() { 
+    this.connectSocket(); 
+  },
+
+
 });
 
 app.mount("#app");
