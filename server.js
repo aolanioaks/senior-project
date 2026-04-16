@@ -214,6 +214,7 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
         carrier || null, 
         agent_notes || null, 
         status || "Pending",
+        JSON.stringify(carrier_options || []),
         quoteId
       ]
     );
