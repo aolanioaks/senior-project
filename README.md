@@ -97,23 +97,6 @@ Create a `.env` file in the backend:
 
 ---
 
-## Current Limitations
-
-- File uploads are stored locally on the server
-- No external insurance carrier API integration yet
-- Notifications (email/SMS) not fully implemented
-
----
-
-## Future Improvements
-
-- Integrate real insurance carrier APIs for live rate pulling
-- Add email and SMS notifications
-- Move file storage to AWS S3
-- Enhance dashboard analytics
-
----
-
 ## Author
 
 Aolani Oaks  
