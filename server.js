@@ -199,20 +199,21 @@ app.delete("/quotes/:id", async (req, res) => {
 app.put("/quotes/:id/agent-update", async (req, res) => {
   try {
     const quoteId = req.params.id;
-    const { premium, carrier, agent_notes, status } = req.body;
+    const { premium, carrier, agent_notes, status, carrier_options } = req.body; // ← add carrier_options here
 
     const result = await pool.query(
       `UPDATE quote_requests
        SET premium = $1,
            carrier = $2,
            agent_notes = $3,
-           status = $4
-       WHERE id = $5
+           status = $4,
+           carrier_options = $5
+       WHERE id = $6
        RETURNING *`,
       [
-        premium || null, 
-        carrier || null, 
-        agent_notes || null, 
+        premium || null,
+        carrier || null,
+        agent_notes || null,
         status || "Pending",
         JSON.stringify(carrier_options || []),
         quoteId
@@ -231,6 +232,8 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
     res.status(500).json({ error: "Database error", detail: err.message });
   }
 });
+
+
 
 app.post("/quotes/upload", upload.any(), async (req, res) => {
     try {
