@@ -258,6 +258,7 @@ const app = createApp({
         const data = await res.json();
     
         localStorage.setItem("client_token", data.token);
+        localStorage.setItem("client_data", JSON.stringify(data.client));
     
         this.isClientLoggedIn = true;
         this.clientAuth.fullName = data.client.full_name;
@@ -305,7 +306,9 @@ const app = createApp({
       this.isAgentSignup = false;
 
       localStorage.removeItem("client_token");
+      localStorage.removeItem("client_data");
       localStorage.removeItem("agent_token");
+      localStorage.removeItem("agent_data"); 
       localStorage.removeItem("client_email");
 
       this.clientAuth = { 
@@ -825,6 +828,7 @@ const app = createApp({
         const data = await res.json();
     
         localStorage.setItem("agent_token", data.token);
+        localStorage.setItem("agent_data", JSON.stringify(data.agent));
     
         this.isAgentLoggedIn = true;
         this.agentAuth.fullName = data.agent.full_name;
@@ -880,9 +884,33 @@ const app = createApp({
 
   },
 
-  
+
   mounted() { 
     this.connectSocket(); 
+
+    const clientToken = localStorage.getItem("client_token");
+    const clientData = localStorage.getItem("client_data");
+    if (clientToken && clientData) {
+      const client = JSON.parse(clientData);
+      this.isClientLoggedIn = true;
+      this.clientAuth.fullName = client.full_name;
+      this.clientAuth.email = client.email;
+      this.clientAuth.phone = client.phone || "";
+      this.loadClientQuotes();
+      this.goTo("clientDashboard");
+    }
+  
+    const agentToken = localStorage.getItem("agent_token");
+    const agentData = localStorage.getItem("agent_data");
+    if (agentToken && agentData) {
+      const agent = JSON.parse(agentData);
+      this.isAgentLoggedIn = true;
+      this.agentAuth.fullName = agent.full_name;
+      this.agentAuth.email = agent.email;
+      this.agentAuth.licenseNumber = agent.license_number || "";
+      this.loadQuotes();
+      this.goTo("agentDashboard");
+    }
   },
 
 
