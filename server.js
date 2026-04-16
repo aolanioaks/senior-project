@@ -1,6 +1,7 @@
 require("dotenv").config();
 console.log("DB URL:", process.env.DATABASE_URL);
-
+const http = require("http");
+const { Server } = require("socket.io");
 const express = require("express");
 const cors = require("cors");
 const { Pool } = require("pg");
@@ -11,7 +12,20 @@ const fs = require("fs");
 const multer = require("multer");
 
 
+
+
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server, {
+  cors: { origin: "*", methods: ["GET", "POST"] },
+});
+io.on("connection", (socket) => {
+  console.log("Socket connected:", socket.id);
+});
+
+
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -92,7 +106,9 @@ app.post("/quotes", async (req, res) => {
         payload]
     );
 
+    io.emit("newQuote", result.rows[0]);
     res.status(201).json(result.rows[0]);
+
   } catch (err) {
     console.error("POST /quotes error:", err);
     res.status(500).json({ error: "Database error", detail: err.message });
@@ -139,6 +155,7 @@ app.post("/quotes/auto-upload",
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
+      io.emit("newQuote", result.rows[0]);
       res.status(201).json(result.rows[0]);
     } catch (err) {
       console.error("POST /quotes/auto-upload error:", err);
@@ -205,9 +222,11 @@ app.put("/quotes/:id/agent-update", async (req, res) => {
       return res.status(404).json({ error: "Quote not found" });
     }
 
+    io.emit("quoteUpdated", result.rows[0]);
     res.json(result.rows[0]);
+
   } catch (err) {
-    console.error("PUT /quotes/:id/agent-update error:", err);
+    console.error("Updated quote error", err);
     res.status(500).json({ error: "Database error", detail: err.message });
   }
 });
@@ -236,6 +255,7 @@ app.post("/quotes/upload", upload.any(), async (req, res) => {
         [quote_type, full_name, email, phone || null, parsedPayload]
       );
 
+      io.emit("newQuote", result.rows[0]);
       res.status(201).json(result.rows[0]);
     } catch (err) {
       console.error("POST /quotes/upload error:", err);
@@ -432,6 +452,6 @@ app.post("/auth/client/login", async (req, res) => {
 
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
+server.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });

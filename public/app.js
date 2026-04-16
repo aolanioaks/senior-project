@@ -163,7 +163,14 @@ const app = createApp({
         show: false,
         message: "",
         type: "info"
-      }
+      },
+
+      carrierOptions: 
+      [{ carrier: "", 
+        premium: "", 
+        notes: "" 
+      }],
+
     };
   },
 
@@ -453,7 +460,11 @@ const app = createApp({
       this.agentQuoteForm.carrier = quote.carrier || "";
       this.agentQuoteForm.agent_notes = quote.agent_notes || "";
       this.agentQuoteForm.status = quote.status || "Pending";
+      this.agentQuoteForm.carrierOptions = quote.carrier_options?.length
+        ? quote.carrier_options
+        : [{ carrier: "", premium: "", notes: "" }];
     },
+
     
     async saveAgentQuote(id) {
       try {
@@ -465,8 +476,10 @@ const app = createApp({
             carrier: this.agentQuoteForm.carrier,
             agent_notes: this.agentQuoteForm.agent_notes,
             status: this.agentQuoteForm.status,
+            carrier_options: this.agentQuoteForm.carrierOptions,
           }),
         });
+        
     
         if (!res.ok) {
           const text = await res.text().catch(() => "");
@@ -828,15 +841,22 @@ const app = createApp({
     },
 
 
-    // allowing upload files on the quotes
     handleFileChange(event, formName, fieldName) {
       const file = event.target.files[0] || null;
       this[formName][fieldName] = file;
     },
 
+    connectSocket() { /* io() setup, listen for newQuote + quoteUpdated */ },
+    addCarrierOption() { this.carrierOptions.push({ carrier: "", premium: "", notes: "" }); },
+    removeCarrierOption(i) { this.carrierOptions.splice(i,1); },
+      
 
-  
-    
+    mounted() { 
+      this.connectSocket(); 
+    },
+
+
+
   },
 });
 
